@@ -8,6 +8,7 @@ import java.util.Set;
 @Table
 public class Rapport {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private LocalDate date;
     private String motif;
