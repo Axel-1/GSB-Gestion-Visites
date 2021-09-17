@@ -6,23 +6,22 @@ import javax.persistence.*;
 @Table
 public class Famille {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private String id;
     private String libelle;
 
     public Famille() {
     }
 
-    public Famille(Long id, String libelle) {
+    public Famille(String id, String libelle) {
         this.id = id;
         this.libelle = libelle;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -37,7 +36,7 @@ public class Famille {
     @Override
     public String toString() {
         return "Famille{" +
-                "id=" + id +
+                "id='" + id + '\'' +
                 ", libelle='" + libelle + '\'' +
                 '}';
     }

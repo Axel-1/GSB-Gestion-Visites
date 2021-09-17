@@ -8,17 +8,14 @@ import java.util.Set;
 @Table
 public class Rapport {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private LocalDate date;
     private String motif;
     private String bilan;
 
     @ManyToOne
-    @JoinColumn(name = "id_visiteur")
     private Visiteur visiteur;
     @ManyToOne
-    @JoinColumn(name = "id_medecin")
     private Medecin medecin;
 
     @OneToMany(mappedBy = "rapport", fetch = FetchType.EAGER)

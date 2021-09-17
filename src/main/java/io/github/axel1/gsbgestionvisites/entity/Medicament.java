@@ -6,33 +6,31 @@ import javax.persistence.*;
 @Table
 public class Medicament {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private String id;
     private String nomCommercial;
     private String composition;
     private String effets;
-    private String contreIndictations;
+    private String contreIndications;
     @ManyToOne
-    @JoinColumn(name = "id_famille")
     private Famille famille;
 
     public Medicament() {
     }
 
-    public Medicament(Long id, String nomCommercial, String composition, String effets, String contreIndictations, Famille famille) {
+    public Medicament(String id, String nomCommercial, String composition, String effets, String contreIndictations, Famille famille) {
         this.id = id;
         this.nomCommercial = nomCommercial;
         this.composition = composition;
         this.effets = effets;
-        this.contreIndictations = contreIndictations;
+        this.contreIndications = contreIndictations;
         this.famille = famille;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -60,12 +58,12 @@ public class Medicament {
         this.effets = effets;
     }
 
-    public String getContreIndictations() {
-        return contreIndictations;
+    public String getContreIndications() {
+        return contreIndications;
     }
 
-    public void setContreIndictations(String contreIndictations) {
-        this.contreIndictations = contreIndictations;
+    public void setContreIndications(String contreIndications) {
+        this.contreIndications = contreIndications;
     }
 
     public Famille getFamille() {
@@ -79,11 +77,11 @@ public class Medicament {
     @Override
     public String toString() {
         return "Medicament{" +
-                "id=" + id +
+                "id='" + id + '\'' +
                 ", nomCommercial='" + nomCommercial + '\'' +
                 ", composition='" + composition + '\'' +
                 ", effets='" + effets + '\'' +
-                ", contreIndictations='" + contreIndictations + '\'' +
+                ", contreIndications='" + contreIndications + '\'' +
                 ", famille=" + famille +
                 '}';
     }

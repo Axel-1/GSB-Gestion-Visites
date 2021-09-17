@@ -1,5 +1,6 @@
 package io.github.axel1.gsbgestionvisites.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.util.Objects;
@@ -7,22 +8,22 @@ import java.util.Objects;
 @Embeddable
 public class OffrirPK implements Serializable {
     private static final Long serialVersionUID = 1L;
-    private Long idMedicament;
+    private String idMedicament;
     private Long idRapport;
 
     public OffrirPK() {
     }
 
-    public OffrirPK(Long idMedicament, Long idRapport) {
+    public OffrirPK(String idMedicament, Long idRapport) {
         this.idMedicament = idMedicament;
         this.idRapport = idRapport;
     }
 
-    public Long getIdMedicament() {
+    public String getIdMedicament() {
         return idMedicament;
     }
 
-    public void setIdMedicament(Long medicament) {
+    public void setIdMedicament(String medicament) {
         this.idMedicament = medicament;
     }
 
@@ -50,8 +51,8 @@ public class OffrirPK implements Serializable {
     @Override
     public String toString() {
         return "OffrirPK{" +
-                "medicament=" + idMedicament +
-                ", rapport=" + idRapport +
+                "idMedicament='" + idMedicament + '\'' +
+                ", idRapport=" + idRapport +
                 '}';
     }
 }

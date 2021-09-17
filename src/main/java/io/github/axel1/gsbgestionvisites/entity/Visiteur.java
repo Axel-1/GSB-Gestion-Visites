@@ -7,8 +7,7 @@ import java.time.LocalDate;
 @Table
 public class Visiteur {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private String id;
     private String nom;
     private String prenom;
     private String login;
@@ -21,7 +20,7 @@ public class Visiteur {
     public Visiteur() {
     }
 
-    public Visiteur(Long id, String nom, String prenom, String login, String mdp, String adresse, String cp, String ville, LocalDate dateEmbauche) {
+    public Visiteur(String id, String nom, String prenom, String login, String mdp, String adresse, String cp, String ville, LocalDate dateEmbauche) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -33,11 +32,11 @@ public class Visiteur {
         this.dateEmbauche = dateEmbauche;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -108,7 +107,7 @@ public class Visiteur {
     @Override
     public String toString() {
         return "Visiteur{" +
-                "id=" + id +
+                "id='" + id + '\'' +
                 ", nom='" + nom + '\'' +
                 ", prenom='" + prenom + '\'' +
                 ", login='" + login + '\'' +

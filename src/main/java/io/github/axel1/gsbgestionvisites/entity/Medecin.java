@@ -6,19 +6,18 @@ import javax.persistence.*;
 @Table
 public class Medecin {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String nom;
     private String prenom;
     private String adresse;
     private String tel;
     private String SpecialiteComplementaire;
-    private String departement;
+    private Long departement;
 
     public Medecin() {
     }
 
-    public Medecin(Long id, String nom, String prenom, String adresse, String tel, String specialiteComplementaire, String departement) {
+    public Medecin(Long id, String nom, String prenom, String adresse, String tel, String specialiteComplementaire, Long departement) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -76,11 +75,11 @@ public class Medecin {
         SpecialiteComplementaire = specialiteComplementaire;
     }
 
-    public String getDepartement() {
+    public Long getDepartement() {
         return departement;
     }
 
-    public void setDepartement(String departement) {
+    public void setDepartement(Long departement) {
         this.departement = departement;
     }
 
@@ -93,7 +92,7 @@ public class Medecin {
                 ", adresse='" + adresse + '\'' +
                 ", tel='" + tel + '\'' +
                 ", SpecialiteComplementaire='" + SpecialiteComplementaire + '\'' +
-                ", departement='" + departement + '\'' +
+                ", departement=" + departement +
                 '}';
     }
 }
