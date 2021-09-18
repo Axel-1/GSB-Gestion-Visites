@@ -23,4 +23,8 @@ public class MedecinService {
     public List<Medecin> findMedecinByNom(String nom) {
         return medecinRepository.findByNomContaining(nom);
     }
+
+    public Medecin getMedecinById(Long id) {
+        return medecinRepository.findById(id).get();
+    }
 }

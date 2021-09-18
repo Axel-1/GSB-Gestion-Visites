@@ -2,7 +2,9 @@ package io.github.axel1.gsbgestionvisites.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.Set;
 
 @Entity
 @Table
@@ -15,6 +17,8 @@ public class Medecin {
     private String tel;
     private String SpecialiteComplementaire;
     private Long departement;
+    @OneToMany(mappedBy = "medecin")
+    private Set<Rapport> rapports;
 
     public Medecin() {
     }
@@ -83,6 +87,14 @@ public class Medecin {
 
     public void setDepartement(Long departement) {
         this.departement = departement;
+    }
+
+    public Set<Rapport> getRapports() {
+        return rapports;
+    }
+
+    public void setRapports(Set<Rapport> rapports) {
+        this.rapports = rapports;
     }
 
     @Override

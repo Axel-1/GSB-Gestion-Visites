@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/dashboard.html :: head"></head>
+<body>
+<header th:replace="fragments/dashboard.html :: header"></header>
+
+<div class="container-fluid">
+    <div class="row">
+        <nav th:replace="fragments/dashboard.html :: nav"></nav>
+
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2" th:text="${title}"></h1>
+            </div>
+
+            <div class="container">
+                <div class="row mb-4">
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title" th:text="${medecin.prenom} + ' ' + ${medecin.nom}"></h5>
+                                <p class="card-subtitle" th:text="${medecin.specialiteComplementaire}"></p>
+                            </div>
+                            <div class="container">
+                                <div class="row mb-1">
+                                    <div class="col">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item">
+                                                <b>Adresse</b> : <span th:text="${medecin.adresse}"></span></li>
+                                            <li class="list-group-item"><b>Tél</b> : <a th:href="'tel:' + ${medecin.tel}" th:text="${medecin.tel}"></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item"><b>ID</b> : <span th:text="${medecin.id}"></span>
+                                            </li>
+                                            <li class="list-group-item"><b>Département</b> : <span th:text="${medecin.departement}"></span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <a href="#"
+                                   class="btn btn-primary">Modifier</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col">
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h4>Rapports</h4>
+                    </div>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Motif</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Medecin</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="rapport: ${medecin.rapports}">
+                            <th scope="row" th:text="${rapport.id}"></th>
+                            <td th:text="${rapport.motif}"></td>
+                            <td th:text="${rapport.date}"></td>
+                            <td th:text="${rapport.medecin.nom}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </main>
+    </div>
+</div>
+
+<footer th:replace="fragments/dashboard.html :: footer"></footer>
+</body>
+</html>

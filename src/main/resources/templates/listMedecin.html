@@ -23,6 +23,7 @@
                         <th scope="col">Tél</th>
                         <th scope="col">Spécialité</th>
                         <th scope="col">Département</th>
+                        <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -34,6 +35,7 @@
                         <td><a th:href="'tel:' + ${medecin.tel}" th:text="${medecin.tel}"></a></td>
                         <td th:text="${medecin.specialiteComplementaire}"></td>
                         <td th:text="${medecin.departement}"></td>
+                        <td><a class="btn btn-primary" th:href="@{/medecins/{id}(id=${medecin.id})}">Détails</a></td>
                     </tr>
                 </tbody>
             </table>
