@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/dashboard.html :: head"></head>
+<body>
+<header th:replace="fragments/dashboard.html :: header"></header>
+
+<div class="container-fluid">
+    <div class="row">
+        <nav th:replace="fragments/dashboard.html :: nav"></nav>
+
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2" th:text="${title}"></h1>
+            </div>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Prénom</th>
+                        <th scope="col">Adresse</th>
+                        <th scope="col">Tél</th>
+                        <th scope="col">Spécialité</th>
+                        <th scope="col">Département</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="medecin: ${medecins}">
+                        <th scope="row" th:text="${medecin.id}"></th>
+                        <td th:text="${medecin.nom}"></td>
+                        <td th:text="${medecin.prenom}"></td>
+                        <td th:text="${medecin.adresse}"></td>
+                        <td th:text="${medecin.tel}"></td>
+                        <td th:text="${medecin.specialiteComplementaire}"></td>
+                        <td th:text="${medecin.departement}"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </main>
+    </div>
+</div>
+
+<footer th:replace="fragments/dashboard.html :: footer"></footer>
+</body>
+</html>
