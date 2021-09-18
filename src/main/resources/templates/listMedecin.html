@@ -31,7 +31,7 @@
                         <td th:text="${medecin.nom}"></td>
                         <td th:text="${medecin.prenom}"></td>
                         <td th:text="${medecin.adresse}"></td>
-                        <td th:text="${medecin.tel}"></td>
+                        <td><a th:href="'tel:' + ${medecin.tel}" th:text="${medecin.tel}"></a></td>
                         <td th:text="${medecin.specialiteComplementaire}"></td>
                         <td th:text="${medecin.departement}"></td>
                     </tr>
