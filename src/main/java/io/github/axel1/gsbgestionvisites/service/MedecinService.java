@@ -20,7 +20,7 @@ public class MedecinService {
         return medecinRepository.findAll();
     }
 
-    public List<Medecin> getMedecinByNom(String nom) {
+    public List<Medecin> findMedecinByNom(String nom) {
         return medecinRepository.findByNomContaining(nom);
     }
 }

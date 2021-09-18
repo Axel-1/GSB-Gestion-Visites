@@ -1,9 +1,8 @@
 package io.github.axel1.gsbgestionvisites.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 @Table
@@ -18,6 +17,8 @@ public class Visiteur {
     private String cp;
     private String ville;
     private LocalDate dateEmbauche;
+    @OneToMany(mappedBy = "visiteur", fetch = FetchType.EAGER)
+    private Set<Rapport> rapports;
 
     public Visiteur() {
     }
@@ -104,6 +105,14 @@ public class Visiteur {
 
     public void setDateEmbauche(LocalDate dateEmbauche) {
         this.dateEmbauche = dateEmbauche;
+    }
+
+    public Set<Rapport> getRapports() {
+        return rapports;
+    }
+
+    public void setRapports(Set<Rapport> rapports) {
+        this.rapports = rapports;
     }
 
     @Override

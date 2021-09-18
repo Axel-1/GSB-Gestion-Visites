@@ -15,7 +15,7 @@
 <body>
 
   <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">GSB</a>
+    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" th:href="@{/}">GSB</a>
     <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse"
             data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
             aria-label="Toggle navigation">
@@ -23,7 +23,9 @@
     </button>
     <form class="d-inline w-100" action="" method="get">
       <input class="form-control form-control-dark w-100" type="text" placeholder="Rechercher..."
-             aria-label="Search" name="nom" id="nom">
+             aria-label="Search" th:name="${searchParam}" id="search" th:if="${isSearchEnabled}">
+      <input class="form-control form-control-dark w-100" type="text" placeholder=""
+             aria-label="Search" th:unless="${isSearchEnabled}" disabled>
     </form>
     <ul class="navbar-nav ps-3">
       <li class="nav-item text-nowrap">
@@ -36,7 +38,6 @@
         <form th:action="@{/logout}" method="post">
           <input type="submit" class="btn btn-outline-danger" value="Se déconnecter"/>
         </form>
-<!--        <a class="btn btn-outline-danger" href="?action=authenticationLogout">Sign out</a>-->
       </li>
     </ul>
   </header>
@@ -47,20 +48,20 @@
         <div class="position-sticky pt-3">
           <ul class="nav flex-column">
             <li class="nav-item">
-              <a class="nav-link" href="#">
+              <a class="nav-link" th:href="@{/}">
                 <i class="bi bi-house bi-sb me-1"></i>
                 Accueil
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">
-                <i class="bi bi-laptop bi-sb me-1"></i>
+              <a class="nav-link" th:href="@{/rapports}">
+                <i class="bi bi-clipboard bi-sb me-1"></i>
                 Rapports
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">
-                <i class="bi bi-laptop bi-sb me-1"></i>
+              <a class="nav-link" th:href="@{/medecins}">
+                <i class="bi bi-file-earmark-medical bi-sb me-1"></i>
                 Médecins
               </a>
             </li>

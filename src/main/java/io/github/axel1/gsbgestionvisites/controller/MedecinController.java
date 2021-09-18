@@ -21,8 +21,9 @@ public class MedecinController {
     @GetMapping(path = "")
     public String searchMedecin(Model model, @RequestParam(defaultValue = "") String nom) {
         model.addAttribute("title", "Médecins");
-        model.addAttribute("search", "medecins");
-        model.addAttribute("medecins", medecinService.getMedecinByNom(nom));
+        model.addAttribute("isSearchEnabled", true);
+        model.addAttribute("searchParam", "nom");
+        model.addAttribute("medecins", medecinService.findMedecinByNom(nom));
         return "listMedecin";
     }
 }
