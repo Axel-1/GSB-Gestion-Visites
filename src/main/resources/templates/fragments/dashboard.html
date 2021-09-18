@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -27,13 +27,16 @@
     </form>
     <ul class="navbar-nav ps-3">
       <li class="nav-item text-nowrap">
-        <a class="nav-link" href="#">Logged in as
-          <b>John DOE</b></a>
+        <a class="nav-link" href="#">Utilisateur :
+          <b sec:authentication="name"></b></a>
       </li>
     </ul>
     <ul class="navbar-nav px-3">
       <li class="nav-item text-nowrap">
-        <a class="btn btn-outline-danger" href="?action=authenticationLogout">Sign out</a>
+        <form th:action="@{/logout}" method="post">
+          <input type="submit" class="btn btn-outline-danger" value="Se déconnecter"/>
+        </form>
+<!--        <a class="btn btn-outline-danger" href="?action=authenticationLogout">Sign out</a>-->
       </li>
     </ul>
   </header>

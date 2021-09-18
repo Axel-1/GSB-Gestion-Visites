@@ -23,6 +23,10 @@ public class MyUserPrincipal implements UserDetails {
         return authorities;
     }
 
+    public Visiteur getVisiteur() {
+        return this.visiteur;
+    }
+
     @Override
     public String getPassword() {
         return this.visiteur.getMdp();
