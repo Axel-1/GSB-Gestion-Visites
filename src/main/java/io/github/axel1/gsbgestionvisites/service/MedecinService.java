@@ -27,4 +27,8 @@ public class MedecinService {
     public Medecin getMedecinById(Long id) {
         return medecinRepository.findById(id).get();
     }
+
+    public Medecin saveMedecin(Medecin medecin) {
+        return medecinRepository.save(medecin);
+    }
 }

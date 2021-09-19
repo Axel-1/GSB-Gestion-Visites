@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/dashboard.html :: head"></head>
+<body>
+<header th:replace="fragments/dashboard.html :: header"></header>
+
+<div class="container-fluid">
+    <div class="row">
+        <nav th:replace="fragments/dashboard.html :: nav"></nav>
+
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2" th:text="${title}"></h1>
+            </div>
+
+            <div class="container">
+                <form th:action="@{/medecins/save}" th:object="${medecin}" method="POST"
+                      class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">ID</label>
+                        <input type="text" class="form-control" name="inputMedecinID"
+                                th:value="${medecin.id}" disabled>
+                        <input type="text" class="form-control" name="inputMedecinID"
+                               th:field="*{id}" th:value="${medecin.id}" hidden>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputMedecinNom" class="form-label">Nom</label>
+                        <input type="text" class="form-control" name="inputMedecinNom" id="inputMedecinNom"
+                               th:field="*{nom}" th:value="${medecin.nom}" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputMedecinPrenom" class="form-label">Prénom</label>
+                        <input type="text" class="form-control" name="inputMedecinPrenom" id="inputMedecinPrenom"
+                               th:field="*{prenom}" th:value="${medecin.prenom}" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputMedecinAdresse" class="form-label">Adresse</label>
+                        <input type="text" class="form-control" name="inputMedecinAdresse" id="inputMedecinAdresse"
+                               th:field="*{adresse}" th:value="${medecin.adresse}" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputMedecinTel" class="form-label">Tél</label>
+                        <input type="text" class="form-control" name="inputMedecinTel" id="inputMedecinTel"
+                               th:field="*{tel}" th:value="${medecin.tel}" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputMedecinSpecialite" class="form-label">Spécialité complémentaire</label>
+                        <input type="text" class="form-control" name="inputMedecinSpecialite" id="inputMedecinSpecialite"
+                               th:field="*{specialiteComplementaire}" th:value="${medecin.specialiteComplementaire}">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputMedecinDepartement" class="form-label">Département</label>
+                        <input type="text" class="form-control" name="inputMedecinDepartement" id="inputMedecinDepartement"
+                               th:field="*{departement}" th:value="${medecin.departement}">
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">Enregistrer</button>
+                    </div>
+                </form>
+            </div>
+
+        </main>
+    </div>
+</div>
+
+<footer th:replace="fragments/dashboard.html :: footer"></footer>
+</body>
+</html>

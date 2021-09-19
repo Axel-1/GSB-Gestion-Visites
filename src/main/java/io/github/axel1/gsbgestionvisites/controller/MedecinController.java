@@ -5,10 +5,7 @@ import io.github.axel1.gsbgestionvisites.service.MedecinService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/medecins")
@@ -36,5 +33,21 @@ public class MedecinController {
         model.addAttribute("title", "Médecins");
         model.addAttribute("medecin", medecin);
         return "detailsMedecin";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String editMedecinById(Model model, @PathVariable("id") Long id) {
+        Medecin medecin = medecinService.getMedecinById(id);
+
+        model.addAttribute("title", "Médecins");
+        model.addAttribute("medecin", medecin);
+        return "formMedecin";
+    }
+
+    @PostMapping("/save")
+    public String submitMedecin(@ModelAttribute Medecin medecin, Model model) {
+        medecinService.saveMedecin(medecin);
+        Long id = medecin.getId();
+        return "redirect:" + id.toString();
     }
 }
