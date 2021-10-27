@@ -18,4 +18,8 @@ public class RapportService {
     public Rapport getRapportByVisiteurAndId(Visiteur visiteur, Long id) {
         return rapportRepository.findByVisiteurAndId(visiteur, id);
     }
+
+    public Rapport saveRapport(Rapport rapport) {
+        return rapportRepository.save(rapport);
+    }
 }
