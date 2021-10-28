@@ -12,7 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/rapports")
@@ -27,12 +29,19 @@ public class RapportController {
     }
 
     @GetMapping(path = "")
-    public String listRapport(Model model, Authentication authentication) {
+    public String searchRapport(Model model, Authentication authentication, @RequestParam(defaultValue = "") String date) {
         MyUserPrincipal myUserPrincipal = (MyUserPrincipal) authentication.getPrincipal();
         Visiteur visiteur = myUserPrincipal.getVisiteur();
-        model.addAttribute("title", "Rapports");
-        model.addAttribute("rapports", visiteur.getRapports());
-        return "listRapport";
+        if (Objects.equals(date, "")) {
+            model.addAttribute("title", "Rapports");
+            model.addAttribute("rapports", rapportService.getRapportByVisiteur(visiteur));
+            return "listRapport";
+        } else {
+            LocalDate localDate = LocalDate.parse(date);
+            model.addAttribute("title", "Rapports");
+            model.addAttribute("rapports", rapportService.getRapportByVisiteurAndDate(visiteur, localDate));
+            return "listRapport";
+        }
     }
 
     @GetMapping("/{id}")

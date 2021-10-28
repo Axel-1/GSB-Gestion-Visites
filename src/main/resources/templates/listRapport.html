@@ -10,8 +10,30 @@
 
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2" th:text="${title}"></h1>
-                <a th:href="@{/rapports/new}" class="btn btn-primary">Nouveau</a>
+                <div>
+                    <h1 class="h2" th:text="${title}"></h1>
+                </div>
+                <div class="container p-0 m-0">
+                    <div class="row justify-content-end p-0 m-0">
+                        <div class="col-auto p-0 m-0">
+                            <form class="d-inline" action="" method="get">
+                                <div class="container p-0 m-0">
+                                    <div class="row p-0 m-0">
+                                        <div class="col-auto p-0 m-0">
+                                            <input class="form-control" type="date" aria-label="Search" name="date" id="search">
+                                        </div>
+                                        <div class="col-auto">
+                                            <button type="submit" class="btn btn-outline-secondary">Rechercher</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-auto me-0 pe-0">
+                            <a th:href="@{/rapports/new}" class="btn btn-success">Nouveau</a>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <table class="table">
