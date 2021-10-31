@@ -1,11 +1,7 @@
 package io.github.axel1.gsbgestionvisites.controller;
 
-import io.github.axel1.gsbgestionvisites.entity.Medecin;
-import io.github.axel1.gsbgestionvisites.entity.Rapport;
-import io.github.axel1.gsbgestionvisites.entity.Visiteur;
-import io.github.axel1.gsbgestionvisites.service.MedecinService;
-import io.github.axel1.gsbgestionvisites.service.MyUserPrincipal;
-import io.github.axel1.gsbgestionvisites.service.RapportService;
+import io.github.axel1.gsbgestionvisites.entity.*;
+import io.github.axel1.gsbgestionvisites.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -21,11 +17,17 @@ import java.util.Objects;
 public class RapportController {
     private final RapportService rapportService;
     private final MedecinService medecinService;
+    private final MedicamentService medicamentService;
+    private final FormMapperService formMapperService;
+    private final OffrirService offrirService;
 
     @Autowired
-    public RapportController(RapportService rapportService, MedecinService medecinService) {
+    public RapportController(RapportService rapportService, MedecinService medecinService, MedicamentService medicamentService, FormMapperService formMapperService, OffrirService offrirService) {
         this.rapportService = rapportService;
         this.medecinService = medecinService;
+        this.medicamentService = medicamentService;
+        this.formMapperService = formMapperService;
+        this.offrirService = offrirService;
     }
 
     @GetMapping(path = "")
@@ -59,26 +61,28 @@ public class RapportController {
 
     @GetMapping("/new")
     public String createRapport(Model model) {
-        Rapport rapport = new Rapport();
+        RapportForm rapportForm = new RapportForm();
+        rapportForm.setRapport(new Rapport());
         List<Medecin> medecinList = medecinService.getAllMedecin();
+        List<Medicament> medicamentList = medicamentService.getAllMedicament();
         model.addAttribute("title", "Rapports");
-        model.addAttribute("rapport", rapport);
+        model.addAttribute("rapportForm", rapportForm);
         model.addAttribute("medecinList", medecinList);
-        model.addAttribute("medecinId", 0);
+        model.addAttribute("medicamentList", medicamentList);
         return "formRapport";
     }
 
     @PostMapping("/save")
-    public String submitRapport(Authentication authentication, @ModelAttribute("rapport") Rapport rapport, @ModelAttribute("medecinId") Long medecinId, Model model) {
+    public String submitRapport(Authentication authentication, @ModelAttribute("rapportForm") RapportForm rapportForm, Model model) {
         MyUserPrincipal myUserPrincipal = (MyUserPrincipal) authentication.getPrincipal();
         Visiteur visiteur = myUserPrincipal.getVisiteur();
 
-        rapport.setVisiteur(visiteur);
-        rapport.setMedecin(medecinService.getMedecinById(medecinId));
-
+        Rapport rapport = formMapperService.toRapport(rapportForm, visiteur);
         Rapport savedRapport = rapportService.saveRapport(rapport);
-        Long id = savedRapport.getId();
 
-        return "redirect:" + id.toString();
+        List<Offrir> offrirs = formMapperService.toOffrirs(rapportForm, savedRapport);
+        offrirService.saveOffrirs(offrirs);
+
+        return "redirect:" + savedRapport.getId().toString();
     }
 }

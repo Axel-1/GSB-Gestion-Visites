@@ -14,36 +14,59 @@
       </div>
 
       <div class="container">
-        <form th:action="@{/rapports/save}" th:object="${rapport}" method="POST"
+        <form th:action="@{/rapports/save}" th:object="${rapportForm}" method="POST"
               class="row g-3">
           <div class="col-md-6">
             <label class="form-label">ID</label>
             <input type="text" class="form-control" name="inputRapportID"
-                   th:value="${rapport.id}" disabled>
+                   th:value="${rapportForm.getRapport().id}" disabled>
             <input type="text" class="form-control" name="inputRapportID"
-                   th:field="*{id}" th:value="${rapport.id}" hidden>
+                   th:field="*{rapport.id}" th:value="${rapportForm.getRapport().id}" hidden>
           </div>
           <div class="col-md-6">
             <label for="inputRapportDate" class="form-label">Date</label>
             <input type="date" class="form-control" name="inputRapportDate" id="inputRapportDate"
-                   th:field="*{date}" th:value="${rapport.date}" required>
+                   th:field="*{rapport.date}" th:value="${rapportForm.getRapport().date}" required>
           </div>
           <div class="col-md-6">
               <label for="inputRapportMedecin" class="form-label">Medecin</label>
-            <select th:value="${medecinId}" class="form-select" name="medecinId" id="inputRapportMedecin" required>
+            <select th:field="*{medecinId}" class="form-select" name="inputRapportMedecin" id="inputRapportMedecin" required>
               <option th:each="medecin : ${medecinList}" th:value="${medecin.getId()}" th:text="${medecin.getNom()}"></option>
             </select>
           </div>
           <div class="col-md-6">
             <label for="inputRapportMotif" class="form-label">Motif</label>
             <input type="text" class="form-control" name="inputRapportMotif" id="inputRapportMotif"
-                   th:field="*{motif}" th:value="${rapport.motif}" required>
+                   th:field="*{rapport.motif}" th:value="${rapportForm.getRapport().motif}" required>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-12">
             <label for="inputRapportBilan" class="form-label">Bilan</label>
             <input type="text" class="form-control" name="inputRapportBilan" id="inputRapportBilan"
-                   th:field="*{bilan}" th:value="${rapport.bilan}" required>
+                   th:field="*{rapport.bilan}" th:value="${rapportForm.getRapport().bilan}" required>
           </div>
+
+          <div class="col-md-6">
+            <label for="inputRapportMedicament0id" class="form-label">Médicament</label>
+            <select class="form-select" name="offrirForms[0].medicamentId" id="inputRapportMedicament0id" required>
+              <option th:each="medicament : ${medicamentList}" th:value="${medicament.getId()}" th:text="${medicament.getNomCommercial()}"></option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label for="inputRapportMedicament0qty" class="form-label">Quantité</label>
+            <input type="text" class="form-control" name="offrirForms[0].quantite" id="inputRapportMedicament0qty" required>
+          </div>
+
+          <div class="col-md-6">
+            <label for="inputRapportMedicament1id" class="form-label">Médicament</label>
+            <select class="form-select" name="offrirForms[1].medicamentId" id="inputRapportMedicament1id" required>
+              <option th:each="medicament : ${medicamentList}" th:value="${medicament.getId()}" th:text="${medicament.getNomCommercial()}"></option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label for="inputRapportMedicament1qty" class="form-label">Quantité</label>
+            <input type="text" class="form-control" name="offrirForms[1].quantite" id="inputRapportMedicament1qty" required>
+          </div>
+
           <div class="col-12">
             <button type="submit" class="btn btn-primary">Enregistrer</button>
           </div>

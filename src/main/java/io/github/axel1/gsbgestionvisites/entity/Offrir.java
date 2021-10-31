@@ -44,6 +44,7 @@ public class Offrir {
 
     public void setMedicament(Medicament medicament) {
         this.medicament = medicament;
+        this.id.setIdMedicament(medicament.getId());
     }
 
     public Rapport getRapport() {
@@ -52,6 +53,7 @@ public class Offrir {
 
     public void setRapport(Rapport rapport) {
         this.rapport = rapport;
+        this.id.setIdRapport(rapport.getId());
     }
 
     public Long getQuantite() {

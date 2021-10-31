@@ -48,6 +48,7 @@ public class Rapport {
     }
 
     public void addRapportOffrir(Offrir offrir) {
+        offrir.setRapport(this);
         rapportOffrir.add(offrir);
     }
 
