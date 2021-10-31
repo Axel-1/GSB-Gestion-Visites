@@ -14,7 +14,8 @@ public class AccueilController {
     }
 
     @GetMapping(path = "/login")
-    public String login() {
+    public String login(Model model) {
+        model.addAttribute("title", "Connexion");
         return "login";
     }
 }
