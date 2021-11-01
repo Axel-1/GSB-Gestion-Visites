@@ -54,7 +54,7 @@ public class RapportController {
 
         Rapport rapport = rapportService.getRapportByVisiteurAndId(visiteur, id);
 
-        model.addAttribute("title", "Rapports");
+        model.addAttribute("title", "Rapports / Détails");
         model.addAttribute("rapport", rapport);
 
         return "detailsRapport";
@@ -68,7 +68,7 @@ public class RapportController {
 
         Rapport rapport = rapportService.getRapportByVisiteurAndId(visiteur, id);
 
-        model.addAttribute("title", "Rapports");
+        model.addAttribute("title", "Rapports / Détails / Modifier");
         model.addAttribute("medecinList", medecinList);
         model.addAttribute("rapport", rapport);
 
@@ -97,7 +97,7 @@ public class RapportController {
         rapportForm.setRapport(new Rapport());
         List<Medecin> medecinList = medecinService.getAllMedecin();
         List<Medicament> medicamentList = medicamentService.getAllMedicament();
-        model.addAttribute("title", "Rapports");
+        model.addAttribute("title", "Rapports / Nouveau");
         model.addAttribute("rapportForm", rapportForm);
         model.addAttribute("medecinList", medecinList);
         model.addAttribute("medicamentList", medicamentList);

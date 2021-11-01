@@ -30,7 +30,7 @@ public class MedecinController {
     public String getMedecinById(Model model, @PathVariable("id") Long id) {
         Medecin medecin = medecinService.getMedecinById(id);
 
-        model.addAttribute("title", "Médecins");
+        model.addAttribute("title", "Médecins / Détails");
         model.addAttribute("medecin", medecin);
         return "detailsMedecin";
     }
@@ -39,7 +39,7 @@ public class MedecinController {
     public String editMedecinById(Model model, @PathVariable("id") Long id) {
         Medecin medecin = medecinService.getMedecinById(id);
 
-        model.addAttribute("title", "Médecins");
+        model.addAttribute("title", "Médecins / Détails / Modifier");
         model.addAttribute("medecin", medecin);
         return "editMedecin";
     }
