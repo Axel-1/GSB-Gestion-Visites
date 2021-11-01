@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RapportService {
@@ -19,6 +20,10 @@ public class RapportService {
     }
 
     public Rapport getRapportByVisiteurAndId(Visiteur visiteur, Long id) {
+        return rapportRepository.findByVisiteurAndId(visiteur, id).get();
+    }
+
+    public Optional<Rapport> findRapportByVisiteurAndId(Visiteur visiteur, Long id) {
         return rapportRepository.findByVisiteurAndId(visiteur, id);
     }
 

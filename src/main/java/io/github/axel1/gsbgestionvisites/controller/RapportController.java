@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/rapports")
@@ -59,6 +60,37 @@ public class RapportController {
         return "detailsRapport";
     }
 
+    @GetMapping("/{id}/edit")
+    public String editRapportById(Model model, @PathVariable("id") Long id, Authentication authentication) {
+        MyUserPrincipal myUserPrincipal = (MyUserPrincipal) authentication.getPrincipal();
+        Visiteur visiteur = myUserPrincipal.getVisiteur();
+        List<Medecin> medecinList = medecinService.getAllMedecin();
+
+        Rapport rapport = rapportService.getRapportByVisiteurAndId(visiteur, id);
+
+        model.addAttribute("title", "Rapports");
+        model.addAttribute("medecinList", medecinList);
+        model.addAttribute("rapport", rapport);
+
+        return "editRapport";
+    }
+
+    @PostMapping("/{id}")
+    public String saveRapport(Authentication authentication, @ModelAttribute("rapport") Rapport rapportEdit, @PathVariable("id") Long id, Model model) {
+        MyUserPrincipal myUserPrincipal = (MyUserPrincipal) authentication.getPrincipal();
+        Visiteur visiteur = myUserPrincipal.getVisiteur();
+        Optional<Rapport> rapportOptional = rapportService.findRapportByVisiteurAndId(visiteur, id);
+
+        if (rapportOptional.isPresent()) {
+            Rapport rapport = rapportOptional.get();
+            rapport.setBilan(rapportEdit.getBilan());
+            rapport.setMotif(rapportEdit.getMotif());
+            rapportService.saveRapport(rapport);
+        }
+
+        return "redirect:" + id.toString();
+    }
+
     @GetMapping("/new")
     public String createRapport(Model model) {
         RapportForm rapportForm = new RapportForm();
@@ -72,7 +104,7 @@ public class RapportController {
         return "formRapport";
     }
 
-    @PostMapping("/save")
+    @PostMapping("")
     public String submitRapport(Authentication authentication, @ModelAttribute("rapportForm") RapportForm rapportForm, Model model) {
         MyUserPrincipal myUserPrincipal = (MyUserPrincipal) authentication.getPrincipal();
         Visiteur visiteur = myUserPrincipal.getVisiteur();
@@ -83,6 +115,6 @@ public class RapportController {
         List<Offrir> offrirs = formMapperService.toOffrirs(rapportForm, savedRapport);
         offrirService.saveOffrirs(offrirs);
 
-        return "redirect:" + savedRapport.getId().toString();
+        return "redirect:rapports/" + savedRapport.getId().toString();
     }
 }

@@ -41,7 +41,7 @@ public class MedecinController {
 
         model.addAttribute("title", "Médecins");
         model.addAttribute("medecin", medecin);
-        return "formMedecin";
+        return "editMedecin";
     }
 
     @PostMapping("/save")

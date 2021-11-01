@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/dashboard.html :: head"></head>
+<body>
+<header th:replace="fragments/dashboard.html :: header"></header>
+
+<div class="container-fluid">
+    <div class="row">
+        <nav th:replace="fragments/dashboard.html :: nav"></nav>
+
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2" th:text="${title}"></h1>
+            </div>
+
+            <div class="container">
+                <form th:action="@{/rapports/{id}(id=${rapport.id})}" th:object="${rapport}" method="POST"
+                      class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">ID</label>
+                        <input type="text" class="form-control" name="inputRapportID"
+                               th:value="${rapport.id}" disabled>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputRapportDate" class="form-label">Date</label>
+                        <input type="date" class="form-control" name="inputRapportDate" id="inputRapportDate"
+                               th:value="${rapport.date}" disabled>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputRapportMedecin" class="form-label">Medecin</label>
+                        <select th:value="${rapport.medecin.id}" class="form-select" name="inputRapportMedecin" id="inputRapportMedecin" disabled>
+                            <option th:each="medecin : ${medecinList}" th:value="${medecin.getId()}" th:text="${medecin.getNom()}"></option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputRapportMotif" class="form-label">Motif</label>
+                        <input type="text" class="form-control" name="inputRapportMotif" id="inputRapportMotif"
+                               th:field="*{motif}" th:value="${rapport.motif}" required>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="inputRapportBilan" class="form-label">Bilan</label>
+                        <input type="text" class="form-control" name="inputRapportBilan" id="inputRapportBilan"
+                               th:field="*{bilan}" th:value="${rapport.bilan}" required>
+                    </div>
+
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">Enregistrer</button>
+                    </div>
+                </form>
+            </div>
+
+        </main>
+    </div>
+</div>
+
+<footer th:replace="fragments/dashboard.html :: footer"></footer>
+</body>
+</html>
