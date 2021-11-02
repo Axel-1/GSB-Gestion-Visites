@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import java.util.Set;
 
 @Entity
@@ -11,9 +13,14 @@ import java.util.Set;
 public class Medecin {
     @Id
     private Long id;
+    @NotBlank
     private String nom;
+    @NotBlank
     private String prenom;
+    @NotBlank
     private String adresse;
+    @NotBlank
+    @Pattern(regexp = "\\d{10}")
     private String tel;
     private String SpecialiteComplementaire;
     private Long departement;

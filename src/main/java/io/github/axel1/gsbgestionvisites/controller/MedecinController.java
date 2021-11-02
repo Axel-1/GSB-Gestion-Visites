@@ -5,7 +5,10 @@ import io.github.axel1.gsbgestionvisites.service.MedecinService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/medecins")
@@ -45,7 +48,12 @@ public class MedecinController {
     }
 
     @PostMapping("/save")
-    public String submitMedecin(@ModelAttribute Medecin medecin, Model model) {
+    public String submitMedecin(@Valid @ModelAttribute("medecin") Medecin medecin, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("title", "Médecins / Détails / Modifier");
+            return "editMedecin";
+        }
+
         medecinService.saveMedecin(medecin);
         Long id = medecin.getId();
         return "redirect:" + id.toString();

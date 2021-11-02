@@ -26,32 +26,44 @@
                     <div class="col-md-6">
                         <label for="inputMedecinNom" class="form-label">Nom</label>
                         <input type="text" class="form-control" name="inputMedecinNom" id="inputMedecinNom"
-                               th:field="*{nom}" th:value="${medecin.nom}" required>
+                               th:field="*{nom}" th:value="${medecin.nom}" th:errorclass="is-invalid">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('nom')}">
+                            Veuillez saisir un nom valide
+                        </div>
                     </div>
                     <div class="col-md-6">
                         <label for="inputMedecinPrenom" class="form-label">Prénom</label>
                         <input type="text" class="form-control" name="inputMedecinPrenom" id="inputMedecinPrenom"
-                               th:field="*{prenom}" th:value="${medecin.prenom}" required>
+                               th:field="*{prenom}" th:value="${medecin.prenom}" th:errorclass="is-invalid">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('prenom')}">
+                            Veuillez saisir un prénom valide
+                        </div>
                     </div>
                     <div class="col-md-6">
                         <label for="inputMedecinAdresse" class="form-label">Adresse</label>
                         <input type="text" class="form-control" name="inputMedecinAdresse" id="inputMedecinAdresse"
-                               th:field="*{adresse}" th:value="${medecin.adresse}" required>
+                               th:field="*{adresse}" th:value="${medecin.adresse}" th:errorclass="is-invalid">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('adresse')}">
+                            Veuillez saisir une adresse valide
+                        </div>
                     </div>
                     <div class="col-md-6">
                         <label for="inputMedecinTel" class="form-label">Tél</label>
                         <input type="text" class="form-control" name="inputMedecinTel" id="inputMedecinTel"
-                               th:field="*{tel}" th:value="${medecin.tel}" required>
+                               th:field="*{tel}" th:value="${medecin.tel}" th:errorclass="is-invalid">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('tel')}">
+                            Veuillez saisir un numéro de téléphone valide (0123456789)
+                        </div>
                     </div>
                     <div class="col-md-6">
                         <label for="inputMedecinSpecialite" class="form-label">Spécialité complémentaire</label>
                         <input type="text" class="form-control" name="inputMedecinSpecialite" id="inputMedecinSpecialite"
-                               th:field="*{specialiteComplementaire}" th:value="${medecin.specialiteComplementaire}">
+                               th:field="*{specialiteComplementaire}" th:value="${medecin.specialiteComplementaire}" th:errorclass="is-invalid">
                     </div>
                     <div class="col-md-6">
                         <label for="inputMedecinDepartement" class="form-label">Département</label>
                         <input type="text" class="form-control" name="inputMedecinDepartement" id="inputMedecinDepartement"
-                               th:field="*{departement}" th:value="${medecin.departement}">
+                               th:field="*{departement}" th:value="${medecin.departement}" th:errorclass="is-invalid">
                     </div>
                     <div class="col-12">
                         <button type="submit" class="btn btn-primary">Enregistrer</button>
