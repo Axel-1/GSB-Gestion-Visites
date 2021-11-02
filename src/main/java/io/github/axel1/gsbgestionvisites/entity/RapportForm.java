@@ -1,10 +1,15 @@
 package io.github.axel1.gsbgestionvisites.entity;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 public class RapportForm {
+    @Valid
     private Rapport rapport;
+    @NotNull
     private Long medecinId;
+    @Valid
     private List<OffrirForm> offrirForms;
 
     public RapportForm() {

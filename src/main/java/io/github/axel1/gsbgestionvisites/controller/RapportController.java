@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
@@ -105,16 +107,27 @@ public class RapportController {
     }
 
     @PostMapping("")
-    public String submitRapport(Authentication authentication, @ModelAttribute("rapportForm") RapportForm rapportForm, Model model) {
+    public String submitRapport(Authentication authentication, @Valid @ModelAttribute("rapportForm") RapportForm rapportForm, BindingResult bindingResult, Model model) {
         MyUserPrincipal myUserPrincipal = (MyUserPrincipal) authentication.getPrincipal();
         Visiteur visiteur = myUserPrincipal.getVisiteur();
 
-        Rapport rapport = formMapperService.toRapport(rapportForm, visiteur);
-        Rapport savedRapport = rapportService.saveRapport(rapport);
+        if (bindingResult.hasErrors()) {
+            List<Medecin> medecinList = medecinService.getAllMedecin();
+            List<Medicament> medicamentList = medicamentService.getAllMedicament();
 
-        List<Offrir> offrirs = formMapperService.toOffrirs(rapportForm, savedRapport);
-        offrirService.saveOffrirs(offrirs);
+            model.addAttribute("medecinList", medecinList);
+            model.addAttribute("medicamentList", medicamentList);
+            model.addAttribute("title", "Rapports / Nouveau");
 
-        return "redirect:rapports/" + savedRapport.getId().toString();
+            return "formRapport";
+        } else {
+            Rapport rapport = formMapperService.toRapport(rapportForm, visiteur);
+            Rapport savedRapport = rapportService.saveRapport(rapport);
+
+            List<Offrir> offrirs = formMapperService.toOffrirs(rapportForm, savedRapport);
+            offrirService.saveOffrirs(offrirs);
+
+            return "redirect:rapports/" + savedRapport.getId().toString();
+        }
     }
 }

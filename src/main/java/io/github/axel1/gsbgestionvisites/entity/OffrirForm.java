@@ -1,7 +1,12 @@
 package io.github.axel1.gsbgestionvisites.entity;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 public class OffrirForm {
+    @NotBlank
     private String medicamentId;
+    @NotNull
     private Long quantite;
 
     public OffrirForm() {

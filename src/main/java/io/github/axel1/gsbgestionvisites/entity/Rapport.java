@@ -3,6 +3,8 @@ package io.github.axel1.gsbgestionvisites.entity;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.Set;
 
@@ -12,9 +14,12 @@ public class Rapport {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
+    @NotBlank
     private String motif;
+    @NotBlank
     private String bilan;
 
     @ManyToOne
