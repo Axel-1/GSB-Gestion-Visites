@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/medecins")
@@ -47,15 +48,24 @@ public class MedecinController {
         return "editMedecin";
     }
 
-    @PostMapping("/save")
-    public String submitMedecin(@Valid @ModelAttribute("medecin") Medecin medecin, BindingResult bindingResult, Model model) {
-        if (bindingResult.hasErrors()) {
-            model.addAttribute("title", "Médecins / Détails / Modifier");
-            return "editMedecin";
-        }
+    @PostMapping("/{id}")
+    public String saveMedecin(@PathVariable("id") Long id, @Valid @ModelAttribute("medecin") Medecin medecinEdit, BindingResult bindingResult, Model model) {
+        Optional<Medecin> medecinOptional = medecinService.findMedecinById(id);
 
-        medecinService.saveMedecin(medecin);
-        Long id = medecin.getId();
-        return "redirect:" + id.toString();
+        if (medecinOptional.isPresent()) {
+            if (bindingResult.hasErrors()) {
+                model.addAttribute("title", "Médecins / Détails / Modifier");
+
+                return "editMedecin";
+            } else {
+                Medecin medecin = medecinOptional.get();
+                medecinEdit.setId(medecin.getId());
+                medecinService.saveMedecin(medecinEdit);
+
+                return "redirect:" + medecinEdit.getId();
+            }
+        } else {
+            return "redirect:";
+        }
     }
 }

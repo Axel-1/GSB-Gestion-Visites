@@ -14,14 +14,12 @@
             </div>
 
             <div class="container">
-                <form th:action="@{/medecins/save}" th:object="${medecin}" method="POST"
+                <form th:action="@{/medecins/{id}(id=${medecin.id})}" th:object="${medecin}" method="POST"
                       class="row g-3">
                     <div class="col-md-6">
                         <label class="form-label">ID</label>
                         <input type="text" class="form-control" name="inputMedecinID"
                                 th:value="${medecin.id}" disabled>
-                        <input type="text" class="form-control" name="inputMedecinID"
-                               th:field="*{id}" th:value="${medecin.id}" hidden>
                     </div>
                     <div class="col-md-6">
                         <label for="inputMedecinNom" class="form-label">Nom</label>
