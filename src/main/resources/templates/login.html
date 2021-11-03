@@ -23,9 +23,11 @@
             <form method="POST" name="f" th:action="@{/login}">
                 <img alt="GSB" class="mt-4 mb-4" th:src="@{/img/gsb-light.png}" width="125">
                 <h1 class="h6 mb-3 fw-normal text-muted">Veuillez vous connecter</h1>
-
+                <div class="alert alert-danger" role="alert" th:if="${error}">
+                    Identifiant ou mot de passe incorrect
+                </div>
                 <div class="form-floating">
-                    <input class="form-control" name="username" placeholder="jdoe" type="text"/>
+                    <input class="form-control" name="username" placeholder="jdoe" type="text" autofocus/>
                     <label>Nom d'utilisateur</label>
                 </div>
                 <div class="form-floating">
