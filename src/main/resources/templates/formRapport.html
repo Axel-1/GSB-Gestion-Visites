@@ -36,12 +36,12 @@
                     </div>
                     <div class="col-md-6">
                         <label class="form-label" for="inputRapportMedecin">Medecin</label>
-                        <select class="form-select" id="inputRapportMedecin" name="inputRapportMedecin"
-                                th:errorclass="is-invalid" th:field="*{medecinId}">
-                            <option selected value="">Choisir un médecin...</option>
-                            <option th:each="medecin : ${medecinList}" th:text="${medecin.getNom()}"
+                        <input class="form-control" id="inputRapportMedecin" name="inputRapportMedecin"
+                                list="datalistOptions" th:errorclass="is-invalid" th:field="*{medecinId}">
+                        <datalist id="datalistOptions">
+                            <option th:each="medecin : ${medecinList}" th:text="${medecin.getNom()} + ' ' + ${medecin.getPrenom()}"
                                     th:value="${medecin.getId()}"></option>
-                        </select>
+                        </datalist>
                         <div class="invalid-feedback" th:if="${#fields.hasErrors('medecinId')}">
                             Veuillez choisir un médecin
                         </div>
