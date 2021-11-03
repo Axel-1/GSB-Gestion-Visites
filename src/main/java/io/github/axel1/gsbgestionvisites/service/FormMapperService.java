@@ -29,6 +29,12 @@ public class FormMapperService {
         return rapport;
     }
 
+    public Rapport toRapport(RapportEditForm rapportEditForm, Rapport rapport) {
+        rapport.setMotif(rapportEditForm.getMotif());
+        rapport.setBilan(rapportEditForm.getBilan());
+        return rapport;
+    }
+
     public List<Offrir> toOffrirs(RapportForm rapportForm, Rapport rapport) {
         List<Offrir> offrirs = new ArrayList<>();
         for (OffrirForm offrirForm : rapportForm.getOffrirForms()) {

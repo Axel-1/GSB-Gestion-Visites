@@ -66,31 +66,35 @@ public class RapportController {
     public String editRapportById(Model model, @PathVariable("id") Long id, Authentication authentication) {
         MyUserPrincipal myUserPrincipal = (MyUserPrincipal) authentication.getPrincipal();
         Visiteur visiteur = myUserPrincipal.getVisiteur();
-        List<Medecin> medecinList = medecinService.getAllMedecin();
 
         Rapport rapport = rapportService.getRapportByVisiteurAndId(visiteur, id);
+        RapportEditForm rapportEditForm = new RapportEditForm(rapport.getId(), rapport.getMotif(), rapport.getBilan());
 
         model.addAttribute("title", "Rapports / Détails / Modifier");
-        model.addAttribute("medecinList", medecinList);
-        model.addAttribute("rapport", rapport);
+        model.addAttribute("rapportEditForm", rapportEditForm);
 
         return "editRapport";
     }
 
     @PostMapping("/{id}")
-    public String saveRapport(Authentication authentication, @ModelAttribute("rapport") Rapport rapportEdit, @PathVariable("id") Long id, Model model) {
+    public String saveRapport(Authentication authentication, @PathVariable("id") Long id, @Valid @ModelAttribute("rapportEditForm") RapportEditForm rapportEditForm, BindingResult bindingResult, Model model) {
         MyUserPrincipal myUserPrincipal = (MyUserPrincipal) authentication.getPrincipal();
         Visiteur visiteur = myUserPrincipal.getVisiteur();
         Optional<Rapport> rapportOptional = rapportService.findRapportByVisiteurAndId(visiteur, id);
 
         if (rapportOptional.isPresent()) {
-            Rapport rapport = rapportOptional.get();
-            rapport.setBilan(rapportEdit.getBilan());
-            rapport.setMotif(rapportEdit.getMotif());
-            rapportService.saveRapport(rapport);
-        }
+            if (bindingResult.hasErrors()) {
+                model.addAttribute("title", "Rapports / Détails / Modifier");
 
-        return "redirect:" + id.toString();
+                return "editRapport";
+            } else {
+                Rapport rapport = rapportOptional.get();
+                rapportService.saveRapport(formMapperService.toRapport(rapportEditForm, rapport));
+                return "redirect:" + id.toString();
+            }
+        } else {
+            return "redirect:";
+        }
     }
 
     @GetMapping("/new")

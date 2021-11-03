@@ -14,33 +14,32 @@
             </div>
 
             <div class="container">
-                <form th:action="@{/rapports/{id}(id=${rapport.id})}" th:object="${rapport}" method="POST"
+                <form th:action="@{/rapports/{id}(id=${rapportEditForm.id})}" th:object="${rapportEditForm}" method="POST"
                       class="row g-3">
+                    <div class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}">
+                        Une erreur est survenue, veuillez vérifier votre saisie
+                    </div>
+
                     <div class="col-md-6">
                         <label class="form-label">ID</label>
                         <input type="text" class="form-control" name="inputRapportID"
-                               th:value="${rapport.id}" disabled>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="inputRapportDate" class="form-label">Date</label>
-                        <input type="date" class="form-control" name="inputRapportDate" id="inputRapportDate"
-                               th:value="${rapport.date}" disabled>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="inputRapportMedecin" class="form-label">Medecin</label>
-                        <select th:value="${rapport.medecin.id}" class="form-select" name="inputRapportMedecin" id="inputRapportMedecin" disabled>
-                            <option th:each="medecin : ${medecinList}" th:value="${medecin.getId()}" th:text="${medecin.getNom()}"></option>
-                        </select>
+                               th:value="${rapportEditForm.id}" disabled>
                     </div>
                     <div class="col-md-6">
                         <label for="inputRapportMotif" class="form-label">Motif</label>
                         <input type="text" class="form-control" name="inputRapportMotif" id="inputRapportMotif"
-                               th:field="*{motif}" th:value="${rapport.motif}" required>
+                               th:field="*{motif}" th:value="${rapportEditForm.motif}" th:errorclass="is-invalid">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('motif')}">
+                            Veuillez saisir un motif valide
+                        </div>
                     </div>
                     <div class="col-md-12">
                         <label for="inputRapportBilan" class="form-label">Bilan</label>
                         <input type="text" class="form-control" name="inputRapportBilan" id="inputRapportBilan"
-                               th:field="*{bilan}" th:value="${rapport.bilan}" required>
+                               th:field="*{bilan}" th:value="${rapportEditForm.bilan}" th:errorclass="is-invalid">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('bilan')}">
+                            Veuillez saisir un bilan valide
+                        </div>
                     </div>
 
                     <div class="col-12">
