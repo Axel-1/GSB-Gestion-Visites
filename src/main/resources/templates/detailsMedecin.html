@@ -27,22 +27,25 @@
                                         <ul class="list-group list-group-flush">
                                             <li class="list-group-item">
                                                 <b>Adresse</b> : <span th:text="${medecin.adresse}"></span></li>
-                                            <li class="list-group-item"><b>Tél</b> : <a th:href="'tel:' + ${medecin.tel}" th:text="${medecin.tel}"></a>
+                                            <li class="list-group-item"><b>Tél</b> : <a
+                                                    th:href="'tel:' + ${medecin.tel}" th:text="${medecin.tel}"></a>
                                             </li>
                                         </ul>
                                     </div>
                                     <div class="col">
                                         <ul class="list-group list-group-flush">
-                                            <li class="list-group-item"><b>ID</b> : <span th:text="${medecin.id}"></span>
+                                            <li class="list-group-item"><b>ID</b> : <span
+                                                    th:text="${medecin.id}"></span>
                                             </li>
-                                            <li class="list-group-item"><b>Département</b> : <span th:text="${medecin.departement}"></span></li>
+                                            <li class="list-group-item"><b>Département</b> : <span
+                                                    th:text="${medecin.departement}"></span></li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                             <div class="card-body">
-                                <a th:href="@{/medecins/{id}/edit(id=${medecin.id})}"
-                                   class="btn btn-primary">Modifier</a>
+                                <a class="btn btn-primary"
+                                   th:href="@{/medecins/{id}/edit(id=${medecin.id})}">Modifier</a>
                             </div>
                         </div>
                     </div>

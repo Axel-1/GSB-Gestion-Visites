@@ -15,28 +15,28 @@
 
             <table class="table">
                 <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Nom</th>
-                        <th scope="col">Prénom</th>
-                        <th scope="col">Adresse</th>
-                        <th scope="col">Tél</th>
-                        <th scope="col">Spécialité</th>
-                        <th scope="col">Département</th>
-                        <th scope="col">Action</th>
-                    </tr>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Prénom</th>
+                    <th scope="col">Adresse</th>
+                    <th scope="col">Tél</th>
+                    <th scope="col">Spécialité</th>
+                    <th scope="col">Département</th>
+                    <th scope="col">Action</th>
+                </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="medecin: ${medecins}">
-                        <th scope="row" th:text="${medecin.id}"></th>
-                        <td th:text="${medecin.nom}"></td>
-                        <td th:text="${medecin.prenom}"></td>
-                        <td th:text="${medecin.adresse}"></td>
-                        <td><a th:href="'tel:' + ${medecin.tel}" th:text="${medecin.tel}"></a></td>
-                        <td th:text="${medecin.specialiteComplementaire}"></td>
-                        <td th:text="${medecin.departement}"></td>
-                        <td><a class="btn btn-primary" th:href="@{/medecins/{id}(id=${medecin.id})}">Détails</a></td>
-                    </tr>
+                <tr th:each="medecin: ${medecins}">
+                    <th scope="row" th:text="${medecin.id}"></th>
+                    <td th:text="${medecin.nom}"></td>
+                    <td th:text="${medecin.prenom}"></td>
+                    <td th:text="${medecin.adresse}"></td>
+                    <td><a th:href="'tel:' + ${medecin.tel}" th:text="${medecin.tel}"></a></td>
+                    <td th:text="${medecin.specialiteComplementaire}"></td>
+                    <td th:text="${medecin.departement}"></td>
+                    <td><a class="btn btn-primary" th:href="@{/medecins/{id}(id=${medecin.id})}">Détails</a></td>
+                </tr>
                 </tbody>
             </table>
 

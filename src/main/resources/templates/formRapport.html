@@ -5,99 +5,108 @@
 <header th:replace="fragments/dashboard.html :: header"></header>
 
 <div class="container-fluid">
-  <div class="row">
-    <nav th:replace="fragments/dashboard.html :: nav"></nav>
+    <div class="row">
+        <nav th:replace="fragments/dashboard.html :: nav"></nav>
 
-    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2" th:text="${title}"></h1>
-      </div>
-
-      <div class="container">
-        <form th:action="@{/rapports}" th:object="${rapportForm}" method="POST"
-              class="row g-3">
-          <div class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}">
-            Une erreur est survenue, veuillez vérifier votre saisie
-          </div>
-
-          <div class="col-md-6">
-            <label class="form-label">ID</label>
-            <input type="text" class="form-control" name="inputRapportID"
-                   th:value="${rapportForm.getRapport().id}" disabled>
-          </div>
-          <div class="col-md-6">
-            <label for="inputRapportDate" class="form-label">Date</label>
-            <input type="date" class="form-control" name="inputRapportDate" id="inputRapportDate"
-                   th:field="*{rapport.date}" th:value="${rapportForm.getRapport().date}" th:errorclass="is-invalid">
-            <div class="invalid-feedback" th:if="${#fields.hasErrors('rapport.date')}">
-              Veuillez saisir une date valide
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2" th:text="${title}"></h1>
             </div>
-          </div>
-          <div class="col-md-6">
-              <label for="inputRapportMedecin" class="form-label">Medecin</label>
-            <select th:field="*{medecinId}" class="form-select" name="inputRapportMedecin" id="inputRapportMedecin" th:errorclass="is-invalid">
-              <option value="" selected>Choisir un médecin...</option>
-              <option th:each="medecin : ${medecinList}" th:value="${medecin.getId()}" th:text="${medecin.getNom()}"></option>
-            </select>
-            <div class="invalid-feedback" th:if="${#fields.hasErrors('medecinId')}">
-              Veuillez choisir un médecin
+
+            <div class="container">
+                <form class="row g-3" method="POST" th:action="@{/rapports}"
+                      th:object="${rapportForm}">
+                    <div class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}">
+                        Une erreur est survenue, veuillez vérifier votre saisie
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">ID</label>
+                        <input class="form-control" disabled name="inputRapportID"
+                               th:value="${rapportForm.getRapport().id}" type="text">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label" for="inputRapportDate">Date</label>
+                        <input class="form-control" id="inputRapportDate" name="inputRapportDate" th:errorclass="is-invalid"
+                               th:field="*{rapport.date}" th:value="${rapportForm.getRapport().date}"
+                               type="date">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('rapport.date')}">
+                            Veuillez saisir une date valide
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label" for="inputRapportMedecin">Medecin</label>
+                        <select class="form-select" id="inputRapportMedecin" name="inputRapportMedecin"
+                                th:errorclass="is-invalid" th:field="*{medecinId}">
+                            <option selected value="">Choisir un médecin...</option>
+                            <option th:each="medecin : ${medecinList}" th:text="${medecin.getNom()}"
+                                    th:value="${medecin.getId()}"></option>
+                        </select>
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('medecinId')}">
+                            Veuillez choisir un médecin
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label" for="inputRapportMotif">Motif</label>
+                        <input class="form-control" id="inputRapportMotif" name="inputRapportMotif" th:errorclass="is-invalid"
+                               th:field="*{rapport.motif}" th:value="${rapportForm.getRapport().motif}"
+                               type="text">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('rapport.motif')}">
+                            Veuillez saisir un motif valide
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-label" for="inputRapportBilan">Bilan</label>
+                        <input class="form-control" id="inputRapportBilan" name="inputRapportBilan" th:errorclass="is-invalid"
+                               th:field="*{rapport.bilan}" th:value="${rapportForm.getRapport().bilan}"
+                               type="text">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('rapport.bilan')}">
+                            Veuillez saisir un bilan valide
+                        </div>
+                    </div>
+
+                    <div class="col-12 mt-4">
+                        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 border-bottom">
+                            <h4>Échantillons</h4>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label" for="inputRapportMedicament0id">Médicament</label>
+                        <select class="form-select" id="inputRapportMedicament0id" name="offrirForms[0].medicamentId">
+                            <option selected value="">Choisir un médicament...</option>
+                            <option th:each="medicament : ${medicamentList}" th:text="${medicament.getNomCommercial()}"
+                                    th:value="${medicament.getId()}"></option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label" for="inputRapportMedicament0qty">Quantité</label>
+                        <input class="form-control" id="inputRapportMedicament0qty" name="offrirForms[0].quantite"
+                               type="text">
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label" for="inputRapportMedicament1id">Médicament</label>
+                        <select class="form-select" id="inputRapportMedicament1id" name="offrirForms[1].medicamentId">
+                            <option selected value="">Choisir un médicament...</option>
+                            <option th:each="medicament : ${medicamentList}" th:text="${medicament.getNomCommercial()}"
+                                    th:value="${medicament.getId()}"></option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label" for="inputRapportMedicament1qty">Quantité</label>
+                        <input class="form-control" id="inputRapportMedicament1qty" name="offrirForms[1].quantite"
+                               type="text">
+                    </div>
+
+                    <div class="col-12">
+                        <button class="btn btn-primary" type="submit">Enregistrer</button>
+                    </div>
+                </form>
             </div>
-          </div>
-          <div class="col-md-6">
-            <label for="inputRapportMotif" class="form-label">Motif</label>
-            <input type="text" class="form-control" name="inputRapportMotif" id="inputRapportMotif"
-                   th:field="*{rapport.motif}" th:value="${rapportForm.getRapport().motif}" th:errorclass="is-invalid">
-            <div class="invalid-feedback" th:if="${#fields.hasErrors('rapport.motif')}">
-              Veuillez saisir un motif valide
-            </div>
-          </div>
-          <div class="col-md-12">
-            <label for="inputRapportBilan" class="form-label">Bilan</label>
-            <input type="text" class="form-control" name="inputRapportBilan" id="inputRapportBilan"
-                   th:field="*{rapport.bilan}" th:value="${rapportForm.getRapport().bilan}" th:errorclass="is-invalid">
-            <div class="invalid-feedback" th:if="${#fields.hasErrors('rapport.bilan')}">
-              Veuillez saisir un bilan valide
-            </div>
-          </div>
 
-          <div class="col-12 mt-4">
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 border-bottom">
-              <h4>Échantillons</h4>
-            </div>
-          </div>
-
-          <div class="col-md-6">
-            <label for="inputRapportMedicament0id" class="form-label">Médicament</label>
-            <select class="form-select" name="offrirForms[0].medicamentId" id="inputRapportMedicament0id">
-              <option selected value="">Choisir un médicament...</option>
-              <option th:each="medicament : ${medicamentList}" th:value="${medicament.getId()}" th:text="${medicament.getNomCommercial()}"></option>
-            </select>
-          </div>
-          <div class="col-md-6">
-            <label for="inputRapportMedicament0qty" class="form-label">Quantité</label>
-            <input type="text" class="form-control" name="offrirForms[0].quantite" id="inputRapportMedicament0qty">
-          </div>
-
-          <div class="col-md-6">
-            <label for="inputRapportMedicament1id" class="form-label">Médicament</label>
-            <select class="form-select" name="offrirForms[1].medicamentId" id="inputRapportMedicament1id">
-              <option selected value="">Choisir un médicament...</option>
-              <option th:each="medicament : ${medicamentList}" th:value="${medicament.getId()}" th:text="${medicament.getNomCommercial()}"></option>
-            </select>
-          </div>
-          <div class="col-md-6">
-            <label for="inputRapportMedicament1qty" class="form-label">Quantité</label>
-            <input type="text" class="form-control" name="offrirForms[1].quantite" id="inputRapportMedicament1qty">
-          </div>
-
-          <div class="col-12">
-            <button type="submit" class="btn btn-primary">Enregistrer</button>
-          </div>
-        </form>
-      </div>
-
-    </main>
-  </div>
+        </main>
+    </div>
 </div>
 
 <footer th:replace="fragments/dashboard.html :: footer"></footer>

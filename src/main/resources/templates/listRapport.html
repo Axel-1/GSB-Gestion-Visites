@@ -16,21 +16,22 @@
                 <div class="container p-0 m-0">
                     <div class="row justify-content-end p-0 m-0">
                         <div class="col-auto p-0 m-0">
-                            <form class="d-inline" action="" method="get">
+                            <form action="" class="d-inline" method="get">
                                 <div class="container p-0 m-0">
                                     <div class="row p-0 m-0">
                                         <div class="col-auto p-0 m-0">
-                                            <input class="form-control" type="date" aria-label="Search" name="date" id="search">
+                                            <input aria-label="Search" class="form-control" id="search" name="date"
+                                                   type="date">
                                         </div>
                                         <div class="col-auto">
-                                            <button type="submit" class="btn btn-outline-secondary">Rechercher</button>
+                                            <button class="btn btn-outline-secondary" type="submit">Rechercher</button>
                                         </div>
                                     </div>
                                 </div>
                             </form>
                         </div>
                         <div class="col-auto me-0 pe-0">
-                            <a th:href="@{/rapports/new}" class="btn btn-success">Nouveau</a>
+                            <a class="btn btn-success" th:href="@{/rapports/new}">Nouveau</a>
                         </div>
                     </div>
                 </div>

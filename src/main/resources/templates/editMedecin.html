@@ -14,61 +14,64 @@
             </div>
 
             <div class="container">
-                <form th:action="@{/medecins/{id}(id=${medecin.id})}" th:object="${medecin}" method="POST"
-                      class="row g-3">
+                <form class="row g-3" method="POST" th:action="@{/medecins/{id}(id=${medecin.id})}"
+                      th:object="${medecin}">
                     <div class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}">
                         Une erreur est survenue, veuillez vérifier votre saisie
                     </div>
 
                     <div class="col-md-6">
                         <label class="form-label">ID</label>
-                        <input type="text" class="form-control" name="inputMedecinID"
-                                th:value="${medecin.id}" disabled>
+                        <input class="form-control" disabled name="inputMedecinID"
+                               th:value="${medecin.id}" type="text">
                     </div>
                     <div class="col-md-6">
-                        <label for="inputMedecinNom" class="form-label">Nom</label>
-                        <input type="text" class="form-control" name="inputMedecinNom" id="inputMedecinNom"
-                               th:field="*{nom}" th:value="${medecin.nom}" th:errorclass="is-invalid">
+                        <label class="form-label" for="inputMedecinNom">Nom</label>
+                        <input class="form-control" id="inputMedecinNom" name="inputMedecinNom" th:errorclass="is-invalid"
+                               th:field="*{nom}" th:value="${medecin.nom}" type="text">
                         <div class="invalid-feedback" th:if="${#fields.hasErrors('nom')}">
                             Veuillez saisir un nom valide
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <label for="inputMedecinPrenom" class="form-label">Prénom</label>
-                        <input type="text" class="form-control" name="inputMedecinPrenom" id="inputMedecinPrenom"
-                               th:field="*{prenom}" th:value="${medecin.prenom}" th:errorclass="is-invalid">
+                        <label class="form-label" for="inputMedecinPrenom">Prénom</label>
+                        <input class="form-control" id="inputMedecinPrenom" name="inputMedecinPrenom" th:errorclass="is-invalid"
+                               th:field="*{prenom}" th:value="${medecin.prenom}" type="text">
                         <div class="invalid-feedback" th:if="${#fields.hasErrors('prenom')}">
                             Veuillez saisir un prénom valide
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <label for="inputMedecinAdresse" class="form-label">Adresse</label>
-                        <input type="text" class="form-control" name="inputMedecinAdresse" id="inputMedecinAdresse"
-                               th:field="*{adresse}" th:value="${medecin.adresse}" th:errorclass="is-invalid">
+                        <label class="form-label" for="inputMedecinAdresse">Adresse</label>
+                        <input class="form-control" id="inputMedecinAdresse" name="inputMedecinAdresse" th:errorclass="is-invalid"
+                               th:field="*{adresse}" th:value="${medecin.adresse}" type="text">
                         <div class="invalid-feedback" th:if="${#fields.hasErrors('adresse')}">
                             Veuillez saisir une adresse valide
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <label for="inputMedecinTel" class="form-label">Tél</label>
-                        <input type="text" class="form-control" name="inputMedecinTel" id="inputMedecinTel"
-                               th:field="*{tel}" th:value="${medecin.tel}" th:errorclass="is-invalid">
+                        <label class="form-label" for="inputMedecinTel">Tél</label>
+                        <input class="form-control" id="inputMedecinTel" name="inputMedecinTel" th:errorclass="is-invalid"
+                               th:field="*{tel}" th:value="${medecin.tel}" type="text">
                         <div class="invalid-feedback" th:if="${#fields.hasErrors('tel')}">
                             Veuillez saisir un numéro de téléphone valide (0123456789)
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <label for="inputMedecinSpecialite" class="form-label">Spécialité complémentaire</label>
-                        <input type="text" class="form-control" name="inputMedecinSpecialite" id="inputMedecinSpecialite"
-                               th:field="*{specialiteComplementaire}" th:value="${medecin.specialiteComplementaire}" th:errorclass="is-invalid">
+                        <label class="form-label" for="inputMedecinSpecialite">Spécialité complémentaire</label>
+                        <input class="form-control" id="inputMedecinSpecialite" name="inputMedecinSpecialite"
+                               th:errorclass="is-invalid"
+                               th:field="*{specialiteComplementaire}" th:value="${medecin.specialiteComplementaire}"
+                               type="text">
                     </div>
                     <div class="col-md-6">
-                        <label for="inputMedecinDepartement" class="form-label">Département</label>
-                        <input type="text" class="form-control" name="inputMedecinDepartement" id="inputMedecinDepartement"
-                               th:field="*{departement}" th:value="${medecin.departement}" th:errorclass="is-invalid">
+                        <label class="form-label" for="inputMedecinDepartement">Département</label>
+                        <input class="form-control" id="inputMedecinDepartement" name="inputMedecinDepartement"
+                               th:errorclass="is-invalid"
+                               th:field="*{departement}" th:value="${medecin.departement}" type="text">
                     </div>
                     <div class="col-12">
-                        <button type="submit" class="btn btn-primary">Enregistrer</button>
+                        <button class="btn btn-primary" type="submit">Enregistrer</button>
                     </div>
                 </form>
             </div>
