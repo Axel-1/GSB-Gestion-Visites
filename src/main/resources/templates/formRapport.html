@@ -57,9 +57,9 @@
                     </div>
                     <div class="col-md-12">
                         <label class="form-label" for="inputRapportBilan">Bilan</label>
-                        <input class="form-control" id="inputRapportBilan" name="inputRapportBilan" th:errorclass="is-invalid"
+                        <textarea class="form-control" id="inputRapportBilan" name="inputRapportBilan" th:errorclass="is-invalid"
                                th:field="*{rapport.bilan}" th:value="${rapportForm.getRapport().bilan}"
-                               type="text">
+                                  type="text" rows="3"></textarea>
                         <div class="invalid-feedback" th:if="${#fields.hasErrors('rapport.bilan')}">
                             Veuillez saisir un bilan valide
                         </div>
