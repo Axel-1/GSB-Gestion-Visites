@@ -58,6 +58,9 @@
                             <th scope="col">#</th>
                             <th scope="col">Nom</th>
                             <th scope="col">Famille</th>
+                            <th scope="col">Composition</th>
+                            <th scope="col">Effets</th>
+                            <th scope="col">Contre indications</th>
                             <th scope="col">Quantité</th>
                         </tr>
                         </thead>
@@ -66,6 +69,9 @@
                             <th scope="row" th:text="${offrir.medicament.id}"></th>
                             <td th:text="${offrir.medicament.nomCommercial}"></td>
                             <td th:text="${offrir.medicament.famille.libelle}"></td>
+                            <td th:text="${offrir.medicament.composition}"></td>
+                            <td th:text="${offrir.medicament.effets}"></td>
+                            <td th:text="${offrir.medicament.contreIndications}"></td>
                             <td th:text="${offrir.quantite}"></td>
                         </tr>
                         </tbody>
