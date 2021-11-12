@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MedicamentService {
@@ -20,7 +21,7 @@ public class MedicamentService {
         return medicamentRepository.findAll();
     }
 
-    public Medicament getMedicamentById(String id) {
-        return medicamentRepository.findById(id).get();
+    public Optional<Medicament> findMedicamentById(String id) {
+        return medicamentRepository.findById(id);
     }
 }

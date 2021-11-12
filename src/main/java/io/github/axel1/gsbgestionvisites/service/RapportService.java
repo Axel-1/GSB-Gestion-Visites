@@ -19,10 +19,6 @@ public class RapportService {
         this.rapportRepository = rapportRepository;
     }
 
-    public Rapport getRapportByVisiteurAndId(Visiteur visiteur, Long id) {
-        return rapportRepository.findByVisiteurAndId(visiteur, id).get();
-    }
-
     public Optional<Rapport> findRapportByVisiteurAndId(Visiteur visiteur, Long id) {
         return rapportRepository.findByVisiteurAndId(visiteur, id);
     }

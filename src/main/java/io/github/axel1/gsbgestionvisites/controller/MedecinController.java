@@ -3,10 +3,12 @@ package io.github.axel1.gsbgestionvisites.controller;
 import io.github.axel1.gsbgestionvisites.entity.Medecin;
 import io.github.axel1.gsbgestionvisites.service.MedecinService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.util.Optional;
@@ -32,20 +34,32 @@ public class MedecinController {
 
     @GetMapping("/{id}")
     public String getMedecinById(Model model, @PathVariable("id") Long id) {
-        Medecin medecin = medecinService.getMedecinById(id);
+        Optional<Medecin> medecinOptional = medecinService.findMedecinById(id);
 
-        model.addAttribute("title", "Médecins / Détails");
-        model.addAttribute("medecin", medecin);
-        return "detailsMedecin";
+        if (medecinOptional.isPresent()) {
+            Medecin medecin = medecinOptional.get();
+
+            model.addAttribute("title", "Médecins / Détails");
+            model.addAttribute("medecin", medecin);
+            return "detailsMedecin";
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping("/{id}/edit")
     public String editMedecinById(Model model, @PathVariable("id") Long id) {
-        Medecin medecin = medecinService.getMedecinById(id);
+        Optional<Medecin> medecinOptional = medecinService.findMedecinById(id);
 
-        model.addAttribute("title", "Médecins / Détails / Modifier");
-        model.addAttribute("medecin", medecin);
-        return "editMedecin";
+        if (medecinOptional.isPresent()) {
+            Medecin medecin = medecinOptional.get();
+
+            model.addAttribute("title", "Médecins / Détails / Modifier");
+            model.addAttribute("medecin", medecin);
+            return "editMedecin";
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping("/{id}")
@@ -65,7 +79,7 @@ public class MedecinController {
                 return "redirect:" + medecinEdit.getId();
             }
         } else {
-            return "redirect:";
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
 }

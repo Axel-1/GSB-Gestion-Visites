@@ -24,7 +24,7 @@ public class FormMapperService {
 
     public Rapport toRapport(RapportForm rapportForm, Visiteur visiteur) {
         Rapport rapport = rapportForm.getRapport();
-        rapport.setMedecin(medecinService.getMedecinById(rapportForm.getMedecinId()));
+        rapport.setMedecin(medecinService.findMedecinById(rapportForm.getMedecinId()).get());
         rapport.setVisiteur(visiteur);
         return rapport;
     }
@@ -38,7 +38,7 @@ public class FormMapperService {
     public List<Offrir> toOffrirs(RapportForm rapportForm, Rapport rapport) {
         List<Offrir> offrirs = new ArrayList<>();
         for (OffrirForm offrirForm : rapportForm.getOffrirForms()) {
-            offrirs.add(new Offrir(medicamentService.getMedicamentById(offrirForm.getMedicamentId()), rapport, offrirForm.getQuantite()));
+            offrirs.add(new Offrir(medicamentService.findMedicamentById(offrirForm.getMedicamentId()).get(), rapport, offrirForm.getQuantite()));
         }
         return offrirs;
     }

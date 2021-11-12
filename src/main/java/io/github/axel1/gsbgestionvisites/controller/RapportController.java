@@ -3,12 +3,15 @@ package io.github.axel1.gsbgestionvisites.controller;
 import io.github.axel1.gsbgestionvisites.entity.*;
 import io.github.axel1.gsbgestionvisites.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
@@ -54,12 +57,18 @@ public class RapportController {
         MyUserPrincipal myUserPrincipal = (MyUserPrincipal) authentication.getPrincipal();
         Visiteur visiteur = myUserPrincipal.getVisiteur();
 
-        Rapport rapport = rapportService.getRapportByVisiteurAndId(visiteur, id);
+        Optional<Rapport> rapportOptional = rapportService.findRapportByVisiteurAndId(visiteur, id);
 
-        model.addAttribute("title", "Rapports / Détails");
-        model.addAttribute("rapport", rapport);
+        if (rapportOptional.isPresent()) {
+            Rapport rapport = rapportOptional.get();
 
-        return "detailsRapport";
+            model.addAttribute("title", "Rapports / Détails");
+            model.addAttribute("rapport", rapport);
+
+            return "detailsRapport";
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping("/{id}/edit")
@@ -67,13 +76,19 @@ public class RapportController {
         MyUserPrincipal myUserPrincipal = (MyUserPrincipal) authentication.getPrincipal();
         Visiteur visiteur = myUserPrincipal.getVisiteur();
 
-        Rapport rapport = rapportService.getRapportByVisiteurAndId(visiteur, id);
-        RapportEditForm rapportEditForm = new RapportEditForm(rapport.getId(), rapport.getMotif(), rapport.getBilan());
+        Optional<Rapport> rapportOptional = rapportService.findRapportByVisiteurAndId(visiteur, id);
 
-        model.addAttribute("title", "Rapports / Détails / Modifier");
-        model.addAttribute("rapportEditForm", rapportEditForm);
+        if (rapportOptional.isPresent()) {
+            Rapport rapport = rapportOptional.get();
+            RapportEditForm rapportEditForm = new RapportEditForm(rapport.getId(), rapport.getMotif(), rapport.getBilan());
 
-        return "editRapport";
+            model.addAttribute("title", "Rapports / Détails / Modifier");
+            model.addAttribute("rapportEditForm", rapportEditForm);
+
+            return "editRapport";
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping("/{id}")
@@ -93,7 +108,7 @@ public class RapportController {
                 return "redirect:" + id.toString();
             }
         } else {
-            return "redirect:";
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
 
@@ -130,7 +145,6 @@ public class RapportController {
 
             List<Offrir> offrirs = formMapperService.toOffrirs(rapportForm, savedRapport);
             offrirService.saveOffrirs(offrirs);
-
             return "redirect:rapports/" + savedRapport.getId().toString();
         }
     }
