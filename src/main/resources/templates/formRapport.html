@@ -27,7 +27,8 @@
                     </div>
                     <div class="col-md-6">
                         <label class="form-label" for="inputRapportDate">Date</label>
-                        <input class="form-control" id="inputRapportDate" name="inputRapportDate" th:errorclass="is-invalid"
+                        <input class="form-control" id="inputRapportDate" name="inputRapportDate"
+                               th:errorclass="is-invalid"
                                th:field="*{rapport.date}" th:value="${rapportForm.getRapport().date}"
                                type="date">
                         <div class="invalid-feedback" th:if="${#fields.hasErrors('rapport.date')}">
@@ -36,10 +37,11 @@
                     </div>
                     <div class="col-md-6">
                         <label class="form-label" for="inputRapportMedecin">Medecin</label>
-                        <input class="form-control" id="inputRapportMedecin" name="inputRapportMedecin"
-                                list="datalistOptions" th:errorclass="is-invalid" th:field="*{medecinId}">
+                        <input class="form-control" id="inputRapportMedecin" list="datalistOptions"
+                               name="inputRapportMedecin" th:errorclass="is-invalid" th:field="*{medecinId}">
                         <datalist id="datalistOptions">
-                            <option th:each="medecin : ${medecinList}" th:text="${medecin.getNom()} + ' ' + ${medecin.getPrenom()}"
+                            <option th:each="medecin : ${medecinList}"
+                                    th:text="${medecin.getNom()} + ' ' + ${medecin.getPrenom()}"
                                     th:value="${medecin.getId()}"></option>
                         </datalist>
                         <div class="invalid-feedback" th:if="${#fields.hasErrors('medecinId')}">
@@ -48,7 +50,8 @@
                     </div>
                     <div class="col-md-6">
                         <label class="form-label" for="inputRapportMotif">Motif</label>
-                        <input class="form-control" id="inputRapportMotif" name="inputRapportMotif" th:errorclass="is-invalid"
+                        <input class="form-control" id="inputRapportMotif" name="inputRapportMotif"
+                               th:errorclass="is-invalid"
                                th:field="*{rapport.motif}" th:value="${rapportForm.getRapport().motif}"
                                type="text">
                         <div class="invalid-feedback" th:if="${#fields.hasErrors('rapport.motif')}">
@@ -57,9 +60,10 @@
                     </div>
                     <div class="col-md-12">
                         <label class="form-label" for="inputRapportBilan">Bilan</label>
-                        <textarea class="form-control" id="inputRapportBilan" name="inputRapportBilan" th:errorclass="is-invalid"
-                               th:field="*{rapport.bilan}" th:value="${rapportForm.getRapport().bilan}"
-                                  type="text" rows="3"></textarea>
+                        <textarea class="form-control" id="inputRapportBilan" name="inputRapportBilan"
+                                  rows="3"
+                                  th:errorclass="is-invalid" th:field="*{rapport.bilan}"
+                                  th:value="${rapportForm.getRapport().bilan}" type="text"></textarea>
                         <div class="invalid-feedback" th:if="${#fields.hasErrors('rapport.bilan')}">
                             Veuillez saisir un bilan valide
                         </div>
@@ -68,35 +72,16 @@
                     <div class="col-12 mt-4">
                         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 border-bottom">
                             <h4>Échantillons</h4>
+                            <div>
+                                <button class="btn btn-success" onclick="addInput('dynamicInput')" type="button">+
+                                </button>
+                                <button class="btn btn-danger" onclick="removeInput()" type="button">-</button>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="col-md-6">
-                        <label class="form-label" for="inputRapportMedicament0id">Médicament</label>
-                        <select class="form-select" id="inputRapportMedicament0id" name="offrirForms[0].medicamentId">
-                            <option selected value="">Choisir un médicament...</option>
-                            <option th:each="medicament : ${medicamentList}" th:text="${medicament.getNomCommercial()}"
-                                    th:value="${medicament.getId()}"></option>
-                        </select>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label" for="inputRapportMedicament0qty">Quantité</label>
-                        <input class="form-control" id="inputRapportMedicament0qty" name="offrirForms[0].quantite"
-                               type="text">
-                    </div>
+                    <div id="dynamicInput">
 
-                    <div class="col-md-6">
-                        <label class="form-label" for="inputRapportMedicament1id">Médicament</label>
-                        <select class="form-select" id="inputRapportMedicament1id" name="offrirForms[1].medicamentId">
-                            <option selected value="">Choisir un médicament...</option>
-                            <option th:each="medicament : ${medicamentList}" th:text="${medicament.getNomCommercial()}"
-                                    th:value="${medicament.getId()}"></option>
-                        </select>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label" for="inputRapportMedicament1qty">Quantité</label>
-                        <input class="form-control" id="inputRapportMedicament1qty" name="offrirForms[1].quantite"
-                               type="text">
                     </div>
 
                     <div class="col-12">
@@ -110,5 +95,58 @@
 </div>
 
 <footer th:replace="fragments/dashboard.html :: footer"></footer>
+<script th:inline="javascript">
+    let medicID = [];
+    let medicChoices = [];
+
+    /*<![CDATA[*/
+    /*[# th:each="medicament : ${medicamentList}"]*/
+    medicID.push(/*[[${medicament.id}]]*/);
+    medicChoices.push(/*[[${medicament.nomCommercial}]]*/);
+    /*[/]*/
+    /*]]>*/
+
+    var map = new Map();
+
+    for (var j = 0; j < medicID.length; j++) {
+        map.set(medicID[j], medicChoices[j]);
+    }
+    let compteur = 0;
+
+    function addInput(divName) {
+        if (document.querySelectorAll('#compteur').length < 10) {
+            var newDiv = document.createElement('div');
+            newDiv.setAttribute('id', 'compteur');
+            newDiv.setAttribute('class', 'row mb-3');
+            var selectHTML = "";
+            selectHTML =
+                "<div class='col-md-6'>" +
+                "<label class='form-label' for='inputRapportMedicament1id'>Médicament</label>" +
+                "<select name='offrirForms[" + compteur + "].medicamentId' class='form-select'>"
+            for (var medoc of map.keys()) {
+                selectHTML += "<option value='" + medoc + "'>" + map.get(medoc) + "</option>";
+            }
+            selectHTML += "" +
+                "</select>" +
+                "</div>" +
+                "<div class='col-md-6'>" +
+                "<label class='form-label' for='inputRapportMedicament1qty'>Quantité</label>" +
+                "<input class='form-control' id='inputRapportMedicament1qty' name='offrirForms[" + compteur + "].quantite' type='text'>" +
+                "</div>";
+            compteur = compteur + 1;
+            newDiv.innerHTML = selectHTML;
+            document.getElementById(divName).appendChild(newDiv);
+        } else {
+
+        }
+
+    }
+
+    function removeInput() {
+        document.querySelector('#compteur:last-child').remove();
+        compteur = compteur - 1;
+    }
+
+</script>
 </body>
 </html>
