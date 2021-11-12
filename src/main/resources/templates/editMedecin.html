@@ -27,7 +27,8 @@
                     </div>
                     <div class="col-md-6">
                         <label class="form-label" for="inputMedecinNom">Nom</label>
-                        <input class="form-control" id="inputMedecinNom" name="inputMedecinNom" th:errorclass="is-invalid"
+                        <input class="form-control" id="inputMedecinNom" name="inputMedecinNom"
+                               th:errorclass="is-invalid"
                                th:field="*{nom}" th:value="${medecin.nom}" type="text">
                         <div class="invalid-feedback" th:if="${#fields.hasErrors('nom')}">
                             Veuillez saisir un nom valide
@@ -35,7 +36,8 @@
                     </div>
                     <div class="col-md-6">
                         <label class="form-label" for="inputMedecinPrenom">Prénom</label>
-                        <input class="form-control" id="inputMedecinPrenom" name="inputMedecinPrenom" th:errorclass="is-invalid"
+                        <input class="form-control" id="inputMedecinPrenom" name="inputMedecinPrenom"
+                               th:errorclass="is-invalid"
                                th:field="*{prenom}" th:value="${medecin.prenom}" type="text">
                         <div class="invalid-feedback" th:if="${#fields.hasErrors('prenom')}">
                             Veuillez saisir un prénom valide
@@ -43,7 +45,8 @@
                     </div>
                     <div class="col-md-6">
                         <label class="form-label" for="inputMedecinAdresse">Adresse</label>
-                        <input class="form-control" id="inputMedecinAdresse" name="inputMedecinAdresse" th:errorclass="is-invalid"
+                        <input class="form-control" id="inputMedecinAdresse" name="inputMedecinAdresse"
+                               th:errorclass="is-invalid"
                                th:field="*{adresse}" th:value="${medecin.adresse}" type="text">
                         <div class="invalid-feedback" th:if="${#fields.hasErrors('adresse')}">
                             Veuillez saisir une adresse valide
@@ -51,7 +54,8 @@
                     </div>
                     <div class="col-md-6">
                         <label class="form-label" for="inputMedecinTel">Tél</label>
-                        <input class="form-control" id="inputMedecinTel" name="inputMedecinTel" th:errorclass="is-invalid"
+                        <input class="form-control" id="inputMedecinTel" name="inputMedecinTel"
+                               th:errorclass="is-invalid"
                                th:field="*{tel}" th:value="${medecin.tel}" type="text">
                         <div class="invalid-feedback" th:if="${#fields.hasErrors('tel')}">
                             Veuillez saisir un numéro de téléphone valide (0123456789)

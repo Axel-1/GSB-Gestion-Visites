@@ -28,7 +28,8 @@
                     </div>
                     <div class="col-md-6">
                         <label class="form-label" for="inputRapportMotif">Motif</label>
-                        <input class="form-control" id="inputRapportMotif" name="inputRapportMotif" th:errorclass="is-invalid"
+                        <input class="form-control" id="inputRapportMotif" name="inputRapportMotif"
+                               th:errorclass="is-invalid"
                                th:field="*{motif}" th:value="${rapportEditForm.motif}" type="text">
                         <div class="invalid-feedback" th:if="${#fields.hasErrors('motif')}">
                             Veuillez saisir un motif valide
@@ -36,8 +37,10 @@
                     </div>
                     <div class="col-md-12">
                         <label class="form-label" for="inputRapportBilan">Bilan</label>
-                        <textarea class="form-control" id="inputRapportBilan" name="inputRapportBilan" th:errorclass="is-invalid"
-                                  th:field="*{bilan}" th:value="${rapportEditForm.bilan}" type="text" rows="3"></textarea>
+                        <textarea class="form-control" id="inputRapportBilan" name="inputRapportBilan"
+                                  rows="3"
+                                  th:errorclass="is-invalid" th:field="*{bilan}" th:value="${rapportEditForm.bilan}"
+                                  type="text"></textarea>
                         <div class="invalid-feedback" th:if="${#fields.hasErrors('bilan')}">
                             Veuillez saisir un bilan valide
                         </div>

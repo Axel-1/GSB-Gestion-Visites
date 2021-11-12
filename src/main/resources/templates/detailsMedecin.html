@@ -71,7 +71,8 @@
                             <th scope="row" th:text="${rapport.id}"></th>
                             <td th:text="${rapport.motif}"></td>
                             <td th:text="${rapport.date}"></td>
-                            <td><a class="btn btn-primary" th:href="@{/rapports/{id}(id=${rapport.id})}">Détails</a></td>
+                            <td><a class="btn btn-primary" th:href="@{/rapports/{id}(id=${rapport.id})}">Détails</a>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
