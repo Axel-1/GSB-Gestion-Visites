@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class FormMapperService {
@@ -22,11 +23,18 @@ public class FormMapperService {
         this.medicamentService = medicamentService;
     }
 
-    public Rapport toRapport(RapportForm rapportForm, Visiteur visiteur) {
+    public Rapport toRapport(RapportForm rapportForm, Visiteur visiteur) throws Exception {
         Rapport rapport = rapportForm.getRapport();
-        rapport.setMedecin(medecinService.findMedecinById(rapportForm.getMedecinId()).get());
-        rapport.setVisiteur(visiteur);
-        return rapport;
+        Optional<Medecin> medecinOptional = medecinService.findMedecinById(rapportForm.getMedecinId());
+
+        if (medecinOptional.isPresent()) {
+            Medecin medecin = medecinOptional.get();
+            rapport.setMedecin(medecin);
+            rapport.setVisiteur(visiteur);
+            return rapport;
+        } else {
+            throw new Exception();
+        }
     }
 
     public Rapport toRapport(RapportEditForm rapportEditForm, Rapport rapport) {
@@ -38,7 +46,12 @@ public class FormMapperService {
     public List<Offrir> toOffrirs(RapportForm rapportForm, Rapport rapport) {
         List<Offrir> offrirs = new ArrayList<>();
         for (OffrirForm offrirForm : rapportForm.getOffrirForms()) {
-            offrirs.add(new Offrir(medicamentService.findMedicamentById(offrirForm.getMedicamentId()).get(), rapport, offrirForm.getQuantite()));
+            Optional<Medicament> medicamentOptional = medicamentService.findMedicamentById(offrirForm.getMedicamentId());
+
+            if (medicamentOptional.isPresent()) {
+                Medicament medicament = medicamentOptional.get();
+                offrirs.add(new Offrir(medicament, rapport, offrirForm.getQuantite()));
+            }
         }
         return offrirs;
     }

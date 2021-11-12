@@ -17,6 +17,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.concurrent.ExecutionException;
 
 @Controller
 @RequestMapping("/rapports")
@@ -140,12 +141,17 @@ public class RapportController {
 
             return "formRapport";
         } else {
-            Rapport rapport = formMapperService.toRapport(rapportForm, visiteur);
-            Rapport savedRapport = rapportService.saveRapport(rapport);
+            try {
+                Rapport rapport = formMapperService.toRapport(rapportForm, visiteur);
 
-            List<Offrir> offrirs = formMapperService.toOffrirs(rapportForm, savedRapport);
-            offrirService.saveOffrirs(offrirs);
-            return "redirect:rapports/" + savedRapport.getId().toString();
+                Rapport savedRapport = rapportService.saveRapport(rapport);
+
+                List<Offrir> offrirs = formMapperService.toOffrirs(rapportForm, savedRapport);
+                offrirService.saveOffrirs(offrirs);
+                return "redirect:rapports/" + savedRapport.getId().toString();
+            } catch (Exception e) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            }
         }
     }
 }

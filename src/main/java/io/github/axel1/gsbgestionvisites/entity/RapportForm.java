@@ -2,6 +2,7 @@ package io.github.axel1.gsbgestionvisites.entity;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 public class RapportForm {
@@ -10,7 +11,7 @@ public class RapportForm {
     @NotNull
     private Long medecinId;
     @Valid
-    private List<OffrirForm> offrirForms;
+    private List<OffrirForm> offrirForms = new ArrayList<>();
 
     public RapportForm() {
     }
