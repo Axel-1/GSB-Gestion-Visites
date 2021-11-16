@@ -1,5 +1,6 @@
 package io.github.axel1.gsbgestionvisites.controller;
 
+import io.github.axel1.gsbgestionvisites.configuration.MotifConfiguration;
 import io.github.axel1.gsbgestionvisites.entity.*;
 import io.github.axel1.gsbgestionvisites.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,14 +28,16 @@ public class RapportController {
     private final MedicamentService medicamentService;
     private final FormMapperService formMapperService;
     private final OffrirService offrirService;
+    private final MotifConfiguration motifConfiguration;
 
     @Autowired
-    public RapportController(RapportService rapportService, MedecinService medecinService, MedicamentService medicamentService, FormMapperService formMapperService, OffrirService offrirService) {
+    public RapportController(RapportService rapportService, MedecinService medecinService, MedicamentService medicamentService, FormMapperService formMapperService, OffrirService offrirService, MotifConfiguration motifConfiguration) {
         this.rapportService = rapportService;
         this.medecinService = medecinService;
         this.medicamentService = medicamentService;
         this.formMapperService = formMapperService;
         this.offrirService = offrirService;
+        this.motifConfiguration = motifConfiguration;
     }
 
     @GetMapping(path = "")
@@ -86,7 +89,10 @@ public class RapportController {
             Rapport rapport = rapportOptional.get();
             RapportEditForm rapportEditForm = new RapportEditForm(rapport.getId(), rapport.getMotif(), rapport.getBilan());
 
+            List<String> motifList = motifConfiguration.getMotifs();
+
             model.addAttribute("title", "Rapports / Détails / Modifier");
+            model.addAttribute("motifList", motifList);
             model.addAttribute("rapportEditForm", rapportEditForm);
 
             return "editRapport";
@@ -104,13 +110,21 @@ public class RapportController {
 
         if (rapportOptional.isPresent()) {
             if (bindingResult.hasErrors()) {
+                List<String> motifList = motifConfiguration.getMotifs();
+
+                model.addAttribute("motifList", motifList);
                 model.addAttribute("title", "Rapports / Détails / Modifier");
 
                 return "editRapport";
             } else {
                 Rapport rapport = rapportOptional.get();
-                rapportService.saveRapport(formMapperService.toRapport(rapportEditForm, rapport));
-                return "redirect:" + id.toString();
+                Rapport rapportEdit = formMapperService.toRapport(rapportEditForm, rapport);
+                if (motifConfiguration.validate(rapportEdit)) {
+                    rapportService.saveRapport(rapportEdit);
+                    return "redirect:" + id.toString();
+                } else {
+                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+                }
             }
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
@@ -125,10 +139,12 @@ public class RapportController {
         rapportForm.setRapport(new Rapport());
         List<Medecin> medecinList = medecinService.getAllMedecin();
         List<Medicament> medicamentList = medicamentService.getAllMedicament();
+        List<String> motifList = motifConfiguration.getMotifs();
         model.addAttribute("title", "Rapports / Nouveau");
         model.addAttribute("rapportForm", rapportForm);
         model.addAttribute("medecinList", medecinList);
         model.addAttribute("medicamentList", medicamentList);
+        model.addAttribute("motifList", motifList);
         return "formRapport";
     }
 
@@ -141,9 +157,11 @@ public class RapportController {
         if (bindingResult.hasErrors()) {
             List<Medecin> medecinList = medecinService.getAllMedecin();
             List<Medicament> medicamentList = medicamentService.getAllMedicament();
+            List<String> motifList = motifConfiguration.getMotifs();
 
             model.addAttribute("medecinList", medecinList);
             model.addAttribute("medicamentList", medicamentList);
+            model.addAttribute("motifList", motifList);
             model.addAttribute("title", "Rapports / Nouveau");
 
             return "formRapport";
@@ -151,12 +169,16 @@ public class RapportController {
             try {
                 Rapport rapport = formMapperService.toRapport(rapportForm, visiteur);
 
-                Rapport savedRapport = rapportService.saveRapport(rapport);
+                if (motifConfiguration.validate(rapport)) {
+                    Rapport savedRapport = rapportService.saveRapport(rapport);
 
-                List<Offrir> offrirs = formMapperService.toOffrirs(rapportForm, savedRapport);
-                offrirService.saveOffrirs(offrirs);
-                // Redirect to the newly created Rapport
-                return "redirect:rapports/" + savedRapport.getId().toString();
+                    List<Offrir> offrirs = formMapperService.toOffrirs(rapportForm, savedRapport);
+                    offrirService.saveOffrirs(offrirs);
+                    // Redirect to the newly created Rapport
+                    return "redirect:rapports/" + savedRapport.getId().toString();
+                } else {
+                    throw new Exception();
+                }
             } catch (Exception e) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
             }

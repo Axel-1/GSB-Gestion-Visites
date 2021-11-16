@@ -50,10 +50,13 @@
                     </div>
                     <div class="col-md-6">
                         <label class="form-label" for="inputRapportMotif">Motif</label>
-                        <input class="form-control" id="inputRapportMotif" name="inputRapportMotif"
+                        <select class="form-select" id="inputRapportMotif" name="inputRapportMotif"
                                th:errorclass="is-invalid"
                                th:field="*{rapport.motif}" th:value="${rapportForm.getRapport().motif}"
                                type="text">
+                            <option value="" selected>Sélectionner un motif...</option>
+                            <option th:each="motif : ${motifList}" th:text="${motif}" th:value="${motif}"></option>
+                        </select>
                         <div class="invalid-feedback" th:if="${#fields.hasErrors('rapport.motif')}">
                             Veuillez saisir un motif valide
                         </div>
