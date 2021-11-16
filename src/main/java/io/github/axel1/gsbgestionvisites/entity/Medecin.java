@@ -5,6 +5,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.Set;
 
@@ -23,6 +24,7 @@ public class Medecin {
     @Pattern(regexp = "\\d{10}")
     private String tel;
     private String SpecialiteComplementaire;
+    @NotNull
     private Long departement;
     @OneToMany(mappedBy = "medecin")
     private Set<Rapport> rapports;

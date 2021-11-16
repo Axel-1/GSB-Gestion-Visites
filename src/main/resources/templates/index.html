@@ -32,7 +32,7 @@
                             <tbody>
                             <tr th:each="rapport: ${rapports}">
                                 <th scope="row" th:text="${rapport.id}"></th>
-                                <td th:text="${rapport.medecin.prenom} + ' ' + ${rapport.medecin.nom}"></td>
+                                <td th:text="${rapport.medecin.nom} + ' ' + ${rapport.medecin.prenom}"></td>
                                 <td th:text="${rapport.motif}"></td>
                                 <td th:text="${rapport.date}"></td>
                                 <td><a class="btn btn-primary" th:href="@{/rapports/{id}(id=${rapport.id})}">Détails</a>

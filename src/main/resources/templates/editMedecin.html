@@ -73,6 +73,9 @@
                         <input class="form-control" id="inputMedecinDepartement" name="inputMedecinDepartement"
                                th:errorclass="is-invalid"
                                th:field="*{departement}" th:value="${medecin.departement}" type="text">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('departement')}">
+                            Veuillez saisir un département valide
+                        </div>
                     </div>
                     <div class="col-12">
                         <button class="btn btn-primary" type="submit">Enregistrer</button>
