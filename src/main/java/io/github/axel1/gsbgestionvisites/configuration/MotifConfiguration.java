@@ -8,7 +8,7 @@ import java.util.List;
 
 @Configuration
 public class MotifConfiguration {
-    private List<String> motifs = new ArrayList<>();
+    private final List<String> motifs = new ArrayList<>();
 
     public MotifConfiguration() {
         motifs.add("Demande du médecin");

@@ -29,9 +29,9 @@
                     <div class="col-md-6">
                         <label class="form-label" for="inputRapportMotif">Motif</label>
                         <select class="form-select" id="inputRapportMotif" name="inputRapportMotif"
-                               th:errorclass="is-invalid"
-                               th:field="*{motif}" th:value="${rapportEditForm.motif}" type="text">
-                            <option value="" selected>Sélectionner un motif...</option>
+                                th:errorclass="is-invalid"
+                                th:field="*{motif}" th:value="${rapportEditForm.motif}" type="text">
+                            <option selected value="">Sélectionner un motif...</option>
                             <option th:each="motif : ${motifList}" th:text="${motif}" th:value="${motif}"></option>
                         </select>
                         <div class="invalid-feedback" th:if="${#fields.hasErrors('motif')}">
