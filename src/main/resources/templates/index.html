@@ -12,6 +12,37 @@
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 class="h2">Accueil</h1>
             </div>
+
+            <div class="container">
+                <div class="row mb-4">
+                    <div class="col">
+                        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                            <h4>Vos 10 derniers rapports</h4>
+                        </div>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Médecin</th>
+                                <th scope="col">Motif</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="rapport: ${rapports}">
+                                <th scope="row" th:text="${rapport.id}"></th>
+                                <td th:text="${rapport.medecin.prenom} + ' ' + ${rapport.medecin.nom}"></td>
+                                <td th:text="${rapport.motif}"></td>
+                                <td th:text="${rapport.date}"></td>
+                                <td><a class="btn btn-primary" th:href="@{/rapports/{id}(id=${rapport.id})}">Détails</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </main>
     </div>
 </div>

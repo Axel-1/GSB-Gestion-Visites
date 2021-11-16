@@ -16,4 +16,6 @@ public interface RapportRepository extends JpaRepository<Rapport, Long> {
     Optional<Rapport> findByVisiteurAndId(Visiteur visiteur, Long id);
 
     List<Rapport> findByVisiteurAndDate(Visiteur visiteur, LocalDate date);
+
+    List<Rapport> findTop10ByVisiteurOrderByDateDesc(Visiteur visiteur);
 }

@@ -34,4 +34,8 @@ public class RapportService {
     public List<Rapport> getRapportByVisiteurAndDate(Visiteur visiteur, LocalDate localDate) {
         return rapportRepository.findByVisiteurAndDate(visiteur, localDate);
     }
+
+    public List<Rapport> findTop10ByVisiteurOrderByDesc(Visiteur visiteur) {
+        return rapportRepository.findTop10ByVisiteurOrderByDateDesc(visiteur);
+    }
 }
