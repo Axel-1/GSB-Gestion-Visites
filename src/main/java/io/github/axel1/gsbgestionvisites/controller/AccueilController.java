@@ -16,6 +16,7 @@ public class AccueilController {
 
     @GetMapping(path = "/login")
     public String login(@RequestParam(name = "error", required = false) String error, Model model) {
+        // Set the "error" attribute to true if the request parameter "error" is present
         if (error != null) {
             model.addAttribute("error", true);
         } else {

@@ -39,6 +39,7 @@ public class RapportController {
 
     @GetMapping(path = "")
     public String searchRapport(Model model, Authentication authentication, @RequestParam(defaultValue = "") String date) {
+        // Retrieve the object of the logged in Visiteur
         MyUserPrincipal myUserPrincipal = (MyUserPrincipal) authentication.getPrincipal();
         Visiteur visiteur = myUserPrincipal.getVisiteur();
         if (Objects.equals(date, "")) {
@@ -55,6 +56,7 @@ public class RapportController {
 
     @GetMapping("/{id}")
     public String getRapportById(Model model, @PathVariable("id") Long id, Authentication authentication) {
+        // Retrieve the object of the logged in Visiteur
         MyUserPrincipal myUserPrincipal = (MyUserPrincipal) authentication.getPrincipal();
         Visiteur visiteur = myUserPrincipal.getVisiteur();
 
@@ -74,6 +76,7 @@ public class RapportController {
 
     @GetMapping("/{id}/edit")
     public String editRapportById(Model model, @PathVariable("id") Long id, Authentication authentication) {
+        // Retrieve the object of the logged in Visiteur
         MyUserPrincipal myUserPrincipal = (MyUserPrincipal) authentication.getPrincipal();
         Visiteur visiteur = myUserPrincipal.getVisiteur();
 
@@ -94,6 +97,7 @@ public class RapportController {
 
     @PostMapping("/{id}")
     public String saveRapport(Authentication authentication, @PathVariable("id") Long id, @Valid @ModelAttribute("rapportEditForm") RapportEditForm rapportEditForm, BindingResult bindingResult, Model model) {
+        // Retrieve the object of the logged in Visiteur
         MyUserPrincipal myUserPrincipal = (MyUserPrincipal) authentication.getPrincipal();
         Visiteur visiteur = myUserPrincipal.getVisiteur();
         Optional<Rapport> rapportOptional = rapportService.findRapportByVisiteurAndId(visiteur, id);
@@ -115,7 +119,9 @@ public class RapportController {
 
     @GetMapping("/new")
     public String createRapport(Model model) {
+        // Create empty RapportForm
         RapportForm rapportForm = new RapportForm();
+        // Create empty Rapport and add it to the RapportForm
         rapportForm.setRapport(new Rapport());
         List<Medecin> medecinList = medecinService.getAllMedecin();
         List<Medicament> medicamentList = medicamentService.getAllMedicament();
@@ -128,6 +134,7 @@ public class RapportController {
 
     @PostMapping("")
     public String submitRapport(Authentication authentication, @Valid @ModelAttribute("rapportForm") RapportForm rapportForm, BindingResult bindingResult, Model model) {
+        // Retrieve the object of the logged in Visiteur
         MyUserPrincipal myUserPrincipal = (MyUserPrincipal) authentication.getPrincipal();
         Visiteur visiteur = myUserPrincipal.getVisiteur();
 
@@ -148,6 +155,7 @@ public class RapportController {
 
                 List<Offrir> offrirs = formMapperService.toOffrirs(rapportForm, savedRapport);
                 offrirService.saveOffrirs(offrirs);
+                // Redirect to the newly created Rapport
                 return "redirect:rapports/" + savedRapport.getId().toString();
             } catch (Exception e) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
