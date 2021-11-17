@@ -28,7 +28,7 @@ public class RapportService {
     }
 
     public List<Rapport> getRapportByVisiteur(Visiteur visiteur) {
-        return rapportRepository.findByVisiteur(visiteur);
+        return rapportRepository.findByVisiteurOrderByDateDesc(visiteur);
     }
 
     public List<Rapport> getRapportByVisiteurAndDate(Visiteur visiteur, LocalDate localDate) {

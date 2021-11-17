@@ -13,6 +13,8 @@ import java.util.Optional;
 public interface RapportRepository extends JpaRepository<Rapport, Long> {
     List<Rapport> findByVisiteur(Visiteur visiteur);
 
+    List<Rapport> findByVisiteurOrderByDateDesc(Visiteur visiteur);
+
     Optional<Rapport> findByVisiteurAndId(Visiteur visiteur, Long id);
 
     List<Rapport> findByVisiteurAndDate(Visiteur visiteur, LocalDate date);
