@@ -21,7 +21,7 @@ public class Medecin {
     @NotBlank
     private String adresse;
     @NotBlank
-    @Pattern(regexp = "\\d{10}")
+    @Pattern(regexp = "(0)[0-9]{9}")
     private String tel;
     private String SpecialiteComplementaire;
     @NotNull
