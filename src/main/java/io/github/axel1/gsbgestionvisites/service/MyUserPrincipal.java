@@ -1,5 +1,6 @@
 package io.github.axel1.gsbgestionvisites.service;
 
+import io.github.axel1.gsbgestionvisites.entity.Role;
 import io.github.axel1.gsbgestionvisites.entity.Visiteur;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,7 +20,9 @@ public class MyUserPrincipal implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_VISITEUR"));
+        for (Role role : this.visiteur.getRoles()) {
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
+        }
         return authorities;
     }
 

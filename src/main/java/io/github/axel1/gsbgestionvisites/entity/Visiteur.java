@@ -1,7 +1,10 @@
 package io.github.axel1.gsbgestionvisites.entity;
 
+import org.springframework.security.core.GrantedAuthority;
+
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -15,6 +18,14 @@ public class Visiteur {
     private String mdp;
     private String adresse;
     private String cp;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "visiteurs_roles",
+            joinColumns = @JoinColumn(
+                    name = "visiteur_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "role_id", referencedColumnName = "id"))
+    private Set<Role> roles;
     private String ville;
     private LocalDate dateEmbauche;
     @OneToMany(mappedBy = "visiteur", fetch = FetchType.EAGER)
@@ -23,7 +34,7 @@ public class Visiteur {
     public Visiteur() {
     }
 
-    public Visiteur(String id, String nom, String prenom, String login, String mdp, String adresse, String cp, String ville, LocalDate dateEmbauche) {
+    public Visiteur(String id, String nom, String prenom, String login, String mdp, String adresse, String cp, Set<Role> roles, String ville, LocalDate dateEmbauche, Set<Rapport> rapports) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -31,8 +42,10 @@ public class Visiteur {
         this.mdp = mdp;
         this.adresse = adresse;
         this.cp = cp;
+        this.roles = roles;
         this.ville = ville;
         this.dateEmbauche = dateEmbauche;
+        this.rapports = rapports;
     }
 
     public String getId() {
@@ -91,6 +104,14 @@ public class Visiteur {
         this.cp = cp;
     }
 
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
     public String getVille() {
         return ville;
     }
@@ -125,8 +146,10 @@ public class Visiteur {
                 ", mdp='" + mdp + '\'' +
                 ", adresse='" + adresse + '\'' +
                 ", cp='" + cp + '\'' +
+                ", roles=" + roles +
                 ", ville='" + ville + '\'' +
                 ", dateEmbauche=" + dateEmbauche +
+                ", rapports=" + rapports +
                 '}';
     }
 }
