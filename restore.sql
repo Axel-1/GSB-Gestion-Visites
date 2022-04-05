@@ -3571,3 +3571,35 @@ INSERT INTO `offrir` (`rapport_id`, `medicament_id`, `quantite`) VALUES
 (607, '3MYC7', 4),
 (611, 'ADIMOL9', 3),
 (611, 'DIMIRTAM6', 5);
+
+INSERT INTO role (id, name) VALUES (1, 'ROLE_VISITEUR');
+INSERT INTO role (id, name) VALUES (2, 'ROLE_SC');
+
+INSERT INTO visiteurs_roles (visiteur_id, role_id) VALUES ('a131', 1);
+INSERT INTO visiteurs_roles (visiteur_id, role_id) VALUES ('a131', 2);
+INSERT INTO visiteurs_roles (visiteur_id, role_id) VALUES ('a17', 1);
+INSERT INTO visiteurs_roles (visiteur_id, role_id) VALUES ('a55', 1);
+INSERT INTO visiteurs_roles (visiteur_id, role_id) VALUES ('a93', 1);
+INSERT INTO visiteurs_roles (visiteur_id, role_id) VALUES ('b13', 1);
+INSERT INTO visiteurs_roles (visiteur_id, role_id) VALUES ('b16', 1);
+INSERT INTO visiteurs_roles (visiteur_id, role_id) VALUES ('b19', 1);
+INSERT INTO visiteurs_roles (visiteur_id, role_id) VALUES ('b25', 1);
+INSERT INTO visiteurs_roles (visiteur_id, role_id) VALUES ('b28', 1);
+INSERT INTO visiteurs_roles (visiteur_id, role_id) VALUES ('b34', 1);
+INSERT INTO visiteurs_roles (visiteur_id, role_id) VALUES ('b4', 1);
+INSERT INTO visiteurs_roles (visiteur_id, role_id) VALUES ('b50', 1);
+INSERT INTO visiteurs_roles (visiteur_id, role_id) VALUES ('b59', 1);
+INSERT INTO visiteurs_roles (visiteur_id, role_id) VALUES ('c14', 1);
+INSERT INTO visiteurs_roles (visiteur_id, role_id) VALUES ('c3', 1);
+INSERT INTO visiteurs_roles (visiteur_id, role_id) VALUES ('c54', 1);
+INSERT INTO visiteurs_roles (visiteur_id, role_id) VALUES ('d13', 1);
+INSERT INTO visiteurs_roles (visiteur_id, role_id) VALUES ('d51', 1);
+INSERT INTO visiteurs_roles (visiteur_id, role_id) VALUES ('e22', 1);
+INSERT INTO visiteurs_roles (visiteur_id, role_id) VALUES ('e24', 1);
+INSERT INTO visiteurs_roles (visiteur_id, role_id) VALUES ('e39', 1);
+INSERT INTO visiteurs_roles (visiteur_id, role_id) VALUES ('e49', 1);
+INSERT INTO visiteurs_roles (visiteur_id, role_id) VALUES ('e5', 1);
+INSERT INTO visiteurs_roles (visiteur_id, role_id) VALUES ('e52', 1);
+INSERT INTO visiteurs_roles (visiteur_id, role_id) VALUES ('f21', 1);
+INSERT INTO visiteurs_roles (visiteur_id, role_id) VALUES ('f39', 1);
+INSERT INTO visiteurs_roles (visiteur_id, role_id) VALUES ('f4', 1);
